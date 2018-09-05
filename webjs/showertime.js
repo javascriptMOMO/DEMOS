@@ -1,3 +1,4 @@
+// web端
 (function () {
     var showList = document.getElementsByClassName("player-earn-data-show")[0];
     var showerNum = document.getElementsByClassName("player-earn-data-num")[0];
