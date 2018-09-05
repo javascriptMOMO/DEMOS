@@ -1,5 +1,6 @@
 // web端
 (function () {
+    // 修改验证
     var showList = document.getElementsByClassName("player-earn-data-show")[0];
     var showerNum = document.getElementsByClassName("player-earn-data-num")[0];
     var ele = document.getElementById('fenye-page');
