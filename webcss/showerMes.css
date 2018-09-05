@@ -1,0 +1,499 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+html{
+    font-weight: 300;
+}
+.wrapper{
+    padding: 20px 8px;
+}
+.container{
+    padding: 0rem 0rem!important;
+    border: 1px solid #dcdcdc;
+    border-bottom: none;
+    overflow: hidden;
+}
+@media screen and (min-width: 1660px) and (max-width: 1900px){
+    html{
+        font-size: 15px!important;
+    }
+} 
+@media screen and (min-width: 1400px) and (max-width: 1660px){
+    html{
+        font-size: 13px!important;
+    }
+    .gift-time2{
+        display: none;
+    }
+}
+@media screen and (min-width: 1300px) and (max-width: 1400px){
+    html{
+        font-size: 8px!important;
+    }
+    .gift-time2{
+        display: none;
+    }
+}
+@media screen and (min-width: 992px) and (max-width: 1300px){
+    html{
+        font-size: 13px!important;
+    }
+    .gift-time2{
+        display: none;
+    }
+}
+.hidden{
+    overflow: hidden;
+}
+.relative{
+    position: relative!important;
+}
+.shower-main{
+    background: url('../img/shower-bg1.jpg');
+    background-size: contain;
+    padding: 1rem 1rem;
+    height:17rem;
+}
+.shower-main-left{
+    height:100%;
+    padding-top: 1rem!important;
+    padding-bottom: 1rem!important;
+}
+.shower-main-right{
+    padding: 0.5rem 0.5rem!important;
+    height: 100%;
+}
+.shower-main-img{
+    width: 11rem!important;
+}
+
+.shower-main-img img{
+    width: 10rem;
+    height: 10rem;
+    border-radius: 1rem;
+}
+.shower-name{
+    height: 3rem;
+    line-height: 3rem;
+}
+.shower-name p{
+    display: inline-block;
+    font-size: 20px;
+    color: #ffffff;
+}
+.shower-fans p{
+    min-width: 11rem;
+}
+.shower-fans .shower-3-r{
+    vertical-align: middle;
+}
+.shower-fans .shower-3-r{
+    color: #2b8!important;
+    letter-spacing: 2px;
+    font-size: 2rem;
+    margin-left: 10px;
+}
+.shower-tags{
+    /* height: 3rem;
+    line-height: 3rem; */
+}
+.shower-tags span{
+    min-width: 5rem;
+    font-size: 13px;
+    border-radius: 10px;
+}
+.shower-id p{
+    min-width: 10rem;;
+}
+.shower-enter{
+    margin-top: -0.7rem!important;
+    width: 10rem!important;
+}
+.shower-3{
+    height: 3rem;
+    line-height: 3rem;
+    overflow: hidden;
+    margin-top: 2rem;
+}
+.shower-3 .row p{
+    color: #ffffff;
+    font-size: 20px;
+}
+.shower-enter-son{
+    width: 8rem;
+    height: 2rem;
+    border-radius: 5rem;
+    background: #f99514;
+    line-height: 2rem;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.shower-enter-son:hover{
+    box-shadow: 0px 0px 5px 2px #ffffff;
+}
+.shower-enter-son a{
+    color: #ffffff;
+    font-size: 14px;
+}
+.shower-mes-more{
+    width: 20rem!important;
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    margin: 2px auto;
+}
+.shower-mes-more div{
+    flex-grow: 1;
+    color: #fff;
+    font-size: 16px;
+    min-width: 20rem;
+}
+/* 主播详细数据表格样式开始 */
+.shower-chart{
+    padding: 1rem 1rem;
+}
+.shower-chart-list div{
+    padding: 1rem 1rem !important;
+}
+.shower-chart div p{
+    margin-left: 2.75rem;
+}
+.shower-table{
+    padding-top: 2rem;
+    padding-left: 1rem;
+    margin-bottom: 0rem;
+}
+.shower-radar-fa{
+    width: 100%!important;
+    height: 100%!important;
+    padding: 0rem 0rem!important;
+}
+.fc-ltr .fc-basic-view .fc-day-number{
+    text-align: center!important;
+}
+.shower-table img{
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem!important;
+}
+.shower-table .shower-table-right .row div{
+    height: 2.5rem;
+    line-height: 2.5rem;
+    padding: 0rem 0rem;
+    cursor: pointer;
+}
+.shower-table .shower-table-right .row .send{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #8a8a8a;
+    min-width: 0rem;
+}
+.shower-table .shower-table-right .row .count{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bolder;
+    color: #f99514;
+}
+.shower-table-title span{
+    font-size: 1.25rem;
+    color: #f99514;
+}
+.shower-table-total-list{
+    padding-left: 1rem;
+}
+.shower-table-title-fa{
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #f99514;
+    margin-bottom: 0rem;
+}
+.shower-table-title-shadow{
+    background: #f99514;
+}
+.shower-table-right .shower-table-title-shadow span{
+    color: #fff;
+}
+.shower-table-right .row div:nth-child(0){
+    height: 4rem;
+}
+.tdColor{
+    background-color: hsla(187, 47%, 66%, 0.5)!important;
+}
+.same-chart{
+    height: 10rem!important;
+    width: 100%!important;
+}
+#shower-earn-line span{
+    display: inline-block;
+    width: 20px!important;
+    height: 10px!important;
+    background-color: #07c27a!important;
+}
+#shower-earn-line{
+    padding-left: 0rem;
+}
+.shower-table::before{
+    /* content: '';
+    display: block;
+    border: 1px solid #dcdcdc;
+    transform: translateX(0%) rotateZ(90deg); */
+}
+.shower-table .shower-table-right{
+    height: 45rem;
+    padding: 0px 35px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    border-bottom: 1px solid #dcdcdc;
+    border-left: 1px solid #dcdcdc;
+}
+#main-earn{
+    width: 100%!important;
+    height: 20rem!important;
+}
+#main-renqi{
+    width: 100%!important;
+    height: 20rem!important;
+}#main-time{
+    width: 100%!important;
+    height: 20rem!important;
+}#main-add{
+    width: 100%!important;
+    height: 20rem!important;
+}
+#compare{
+    width: 100%!important;
+    height: 35rem!important;
+}
+#shower-radar{
+    width: 100%;
+    height: 30rem;
+}
+.total-gift{
+    height: 3rem;
+}
+.total-gift img{
+    width: 2rem;
+    height:2rem;
+}
+.gift-senter a{
+    font-weight: 300;
+}
+/* 礼物排名前五样式 */
+#heji{
+    height: 2.5rem;
+    line-height: 2.5rem;
+    padding: 0rem!important;
+    border-radius: 65px;
+}
+#heji span{
+    display: inline-block;
+    background: #ffc547;
+    color: #fff;
+    font-size: 1rem;
+    width: 3rem;
+    height: 2.5rem;
+    border-radius: 7px;
+    margin-left: 50px;
+}
+/*分页组件样式 */
+.ui-pagination-container {
+    position: relative;
+    top: 2rem;
+	height: 34px!important;
+    line-height: 34px!important;
+}
+.ui-pagination-container .ui-pagination-page-item {
+	font-size: 14px;
+	padding: 0px 10px;
+	background: #fff;
+	border: 1px solid #2bb6ce;
+	color: #2bb6ce88;
+	margin: 0 3px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+.ui-pagination-container .ui-pagination-page-item:hover {
+	border-color: #2bb6ce;
+	color: #fff;
+    text-decoration: none;
+    background: #2bb6ce;
+}
+.ui-pagination-container .ui-pagination-page-item.active {
+	background: #2bb6ce;
+	border-color: #2bb6ce;
+	color: #fff;
+    cursor: default;
+}
+/*分页组件样式 */
+/* .ui-pagination-container {
+	height: 34px;
+    line-height: 34px;
+}
+
+.ui-pagination-container .ui-pagination-page-item {
+	font-size: 14px;
+	padding: 0px 10px;
+	background: #fff;
+	border: 1px solid #2bb6ce;
+	color: #2bb6ce88;
+	margin: 0 3px;
+	text-decoration: none;
+}
+
+.ui-pagination-container .ui-pagination-page-item:hover {
+	border-color: #2bb6ce;
+	color: #fff;
+    text-decoration: none;
+    background: #2bb6ce;
+
+}
+
+.ui-pagination-container .ui-pagination-page-item.active {
+	background: #2bb6ce;
+	border-color: #2bb6ce;
+	color: #fff;
+    cursor: default;
+} */
+#new-page{
+    height: 0rem;
+    margin-top: -2rem;
+}
+#card-new-page{
+    height: 0px;
+}
+/* 历史数据样式开始 */
+.new-card{
+    box-shadow: 0px 0px 0px 0px #fff;
+    background: #fff;
+    padding: 0px;
+    margin: 0px;
+    /* height: 30rem; */
+}
+.th{
+    font-weight: 400;
+}
+.card-p{
+    font-weight: 400;
+    font-size: 18px;
+    margin-left: 0.4rem!important;
+}
+.card-li{
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.card-li li{
+    width: 3rem;
+    height: 2rem;
+    padding: 4px;
+    cursor: pointer;
+}
+.li-color{
+    background: #2bb6ce;
+    color: #fff;
+}
+.card-head{
+    margin-bottom: 0rem;
+}
+.card-li li span{
+    margin-top: 50%;
+}
+/* 日历公共css */
+.fc-highlight{
+    background: #F08201!important;
+    opacity: 0.8!important;
+}
+.fc-unthemed .fc-today{
+    background-color: #ffffff!important;
+    border-top: 1px solid #dcdcdc!important;
+}
+.shower-table-right .senter-name span{
+    color: #039be5!important;
+    font-size: 14px!important;
+    padding: 0px 30px;
+}
+/* 礼物列表动画加载 */
+#gift-loading{
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    width: 100%;
+    height: 100%;
+    transform: translateX(-50%);
+    transform: translateY(-50%);
+    /* background: rgba(250, 250, 250, 0.2); */
+}
+.gift-loading-img{
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translateX(-50%);
+    transform: translateY(-50%);
+}
+/* 滚送条样式 */
+.shower-table-right::-webkit-scrollbar {/*滚动条整体样式*//*高宽分别对应横竖滚动条的尺寸*/
+    width: 4px;     
+    height: 0px;
+}
+/* 更新礼物列表样式 */
+.new-gift-css{
+    height: 88%;
+    margin-bottom: 0rem;
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+.new-gift-css-list{
+    flex-grow: 30;
+    display: flex;
+    flex-direction: column;
+}
+.new-gift-css-page{
+    flex-grow: 1;
+}
+.new-gift-css-total{
+    flex-grow: 1;
+}
+.new-gift-css-list ul{
+    flex-grow: 1;
+}
+.new-gift-css-list ul :nth-of-type(0){
+    width: 1rem;
+}
+.new-gift-css-list ul li{
+    flex-grow: 1;
+    width: 6rem;
+    text-align: center; 
+}
+.new-gift-css-total{
+    display: flex;
+}
+.total-ul-css li{
+    flex-grow: 1;
+}
+/* 礼物列表曲线切换按钮 */
+.new-gift-css-list-change-l{
+    line-height: 2rem;
+    background: #f99514;
+    width: 3rem;
+    color: #fff;
+}
+#gift-chart{
+    width: 100%; 
+    height: 100%; 
+    position: absolute;
+}
+#gift-list{
+    width: 100%; 
+    height: 100%; 
+    position: absolute;
+    flex-grow: 30;
+    display: flex;
+    flex-direction: column;
+}
+.opacity{
+    visibility: hidden;
+}
+.fc-other-month{
+    background: #fff!important;
+}

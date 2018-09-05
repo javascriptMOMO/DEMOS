@@ -1,0 +1,285 @@
+{extend name="common:base" /}
+{block name="title"}真唱详情{/block}
+
+{block name="link"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/home/mater/css/sw-css/videodetails.css"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/home/mater/css/sw-css/jquery.pagination.css"/>
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_696058_cftf70rh8bn.css"/>
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_707265_vwzdvi5hgvr.css"/>
+<style>
+	#selectDay{
+	    width: 305px;
+	    border: 1px solid #DDDDDD;
+	    height: 33px;
+	    border-radius: 5px;
+	    text-indent: 50px;
+	    letter-spacing: 3px;
+	    margin-bottom: 15px;
+	}
+	input[type=text] {
+	    border: 1px solid #DDDDDD;
+	    height: 20px;
+	    width: 32px;
+	    font-size: 13px;
+	    margin: 0;
+	    text-indent: .2rem;
+	}
+	input[type=text]:focus:not([readonly]){
+	    border-bottom: 1px solid #DDDDDD !important;
+	    box-shadow: none !important;
+	}
+	#tips-con{
+		display: none;
+		position: absolute;
+	    top: 36px;
+	    left: 0px;
+	    background-color: #eee;
+	    font-size: 12px;
+	    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+	    padding: 10px;
+	    border-radius: 5px;
+	}
+</style>
+{/block}
+
+{block name="main"}
+<div class="sw-container" style="margin-top: 20px;">
+	<div class="main">
+		<div class="main-header clearFix">
+			<div class="shower-logo left">
+				<a href="#" class="href" target="_blank"><img id="userlogo" src="http://s3.fx.kgimg.com/fxusercmdavata/system.gif" width="132" height="132"/></a>
+			</div>
+			<div class="descripte left">
+				<a href="#" class="href" target="_blank"><p id="nickname">{$star.nickname}</p></a>
+				<span>房间号:</span><span class="fans" id="fans"><a href="http://fanxing.kugou.com/{$star.roomid}" target="_blank">{$star.roomid}</a></span>
+				<span style="margin-left: 40px;">粉丝数:</span><span class="fans" id="nums">{$star.fanscount}</span>
+			</div>
+		</div>
+		<div class="main-body">
+			<div class="main-body1">
+				<div class="row">
+				    <div id="data1" class="col s12">
+				    	<div class="data1-header">
+				    		<span class="title">数据趋势</span>
+				    	</div>
+				    	<div class="chart-change" style="border: 1px solid #DEDEDE;height: 400px;">
+				    		<div class="change-header">
+				    			<ul class="tabs" style="margin: 0 auto;">
+							        <li class="tab col s3"><a class="active" href="#test1">每日S级以上总数</a></li>
+							    </ul>
+				    		</div>
+				    		<div class="change-body">
+				    			<div class="row">
+								    <div id="test1" class="col s12">
+								    	<div id="chart1" style="height: 350px;"></div>
+								    </div>
+								</div>
+				    		</div>
+				    	</div>
+				    	
+				    	<div class="data1-header clearFix" style="margin-top: 23px;margin-bottom: 0px;">
+				    		<span class="title left" style="margin-top: 5px;">歌曲详情</span>
+				    		<div class="chooseMonth allChoose left" style="position:relative;margin-left: 45px;">
+			    				<i class="iconfont icon-icon-calendar" style="position: absolute;top: 5px;left: 20px;"></i>
+			    				<input type="text" id="selectDay" value="2018-06-01" />
+			    			</div>
+				    		<div class="change-order right" style="width:340px;margin-right: 7px;">
+					    		<ul class="tabs" style="border: 1px solid #DDDDDD;">
+					    			<li class="tab col s3" id="orderAll"><a class="active" href="javascript:;">全部</a></li>
+							        <li class="tab col s3" id="orderS"><a href="javascript:;">s级</a></li>
+							        <li class="tab col s3" id="orderSS"><a href="javascript:;">ss级</a></li>
+							        <li class="tab col s3" id="orderSSS"><a href="javascript:;">sss级</a></li>
+							    </ul>
+				    		</div>
+				    	</div>
+				    	<table border="0" cellspacing="0" cellpadding="0">
+				    		<thead>
+				    			<tr>
+				    				<td style="padding-left: 30px;position: relative;">
+				    					<i class="iconfont icon-aui-icon-question" id="tips" style="cursor: pointer;position: absolute;left: 105px;"></i>
+				    					唱歌时间
+				    					<div id="tips-con">
+				    						<p style="margin: 0; line-height: 1.5;">此时间为采集时间</p>
+				    						<p style="margin: 0;line-height: 1.5;">与实际歌唱时间 可能存在些许误差</p>
+				    					</div>
+				    				</td>
+				    				<td>歌曲名</td>
+				    				<td>歌曲评分</td>
+				    			</tr>
+				    		</thead>
+				    		<tbody id="tbody"></tbody>
+				    	</table>
+				    	<div class="row" style="margin-top: 20px;">
+							<div class="col s12 m12 l12 ">
+			                    <div id="fenye-page">
+			                        <div id="new-page" class="page fl center-align"></div>
+			                    </div>
+			                </div>
+						</div>
+				    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</div>
+{/block}
+{block name="js"}
+<script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts-en.min.js"></script>
+<script type="text/javascript" src="__STATIC__/home/mater/js/sw-js/jquery.pagination.min.js"></script>
+<script src="__STATIC__/home/mater/js/sw-js/laydate/laydate.js"></script>
+<script>
+	var mindate=null;
+	$(function(){
+		var datenow=new Date();
+		var year=datenow.getFullYear();
+		var month=(datenow.getMonth()+1)>9?(datenow.getMonth()+1):('0'+(datenow.getMonth()+1));
+		var maxDate=year+'-'+month+'-01';
+		var userlogo = '{$star.userlogo}';
+		userlogo=userlogo.replace('85x85','200x200');
+		$('#userlogo').attr('src',userlogo);
+		$.ajax({
+			type:"post",
+			url:"/kugou/public/index.php/home/showerlist/daySLevel",
+			data:{date:maxDate,roomid:{$roomid}},
+			async:true,
+			success:function(data){
+				initCharts(data);
+			},
+			complete:function(){
+				var datenow=new Date();
+				var year=datenow.getFullYear();
+				var month=(datenow.getMonth()+1)>9?(datenow.getMonth()+1):('0'+(datenow.getMonth()+1));
+				var date0 = datenow.getDate() >9? datenow.getDate() : ('0'+datenow.getDate())
+				var maxDate=year+'-'+month+'-'+date0;
+				var yesterDay = new Date(new Date() - 24*60*60*1000);
+				var yyear=yesterDay.getFullYear();
+				var ymonth=(yesterDay.getMonth()+1)>9?(yesterDay.getMonth()+1):('0'+(yesterDay.getMonth()+1));
+				var ydate0 = yesterDay.getDate() >9? yesterDay.getDate() : ('0'+yesterDay.getDate())
+				var value= yyear+'-'+ ymonth+'-'+ ydate0;
+				var yesterDay2 = new Date(new Date() - 30*24*60*60*1000);
+				var yyear2=yesterDay2.getFullYear();
+				var ymonth2=(yesterDay2.getMonth()+1)>9?(yesterDay2.getMonth()+1):('0'+(yesterDay2.getMonth()+1));
+				var ydate02 = yesterDay2.getDate() >9? yesterDay2.getDate() : ('0'+yesterDay2.getDate())
+				var value2= yyear2+'-'+ ymonth2+'-'+ ydate02;
+				if((new Date(value2).getTime())-(new Date(mindate).getTime()) > 0){
+					var value1 = value2 +' ~ '+ value;
+				}else{
+					var value1 = mindate +' ~ '+ value;
+				}
+				dateTime2 = value1;
+				getDetails(pageNow,dateTime2);
+				laydate.render({
+			        elem: '#selectDay', 
+			        format:'yyyy-MM-dd',
+			        min: mindate,
+			        range:'~',
+			        max:maxDate,
+			        value:value1,
+			        showBottom:false,
+			        change:function(value){
+			        	$('#selectDay').val(value);
+			        	$('#layui-laydate1').hide();
+			        	dateTime2 = value;
+			        	getDetails(pageNow,value,sLevel)
+			        }
+			    });
+			}
+		});
+	})
+	
+	$('#tips').mouseover(function(){
+		$('#tips-con').show()
+	})
+	$('#tips').mouseleave(function(){
+		$('#tips-con').hide()
+	})
+	function initCharts(data){
+		var sSum=[],time=[],sums=null;
+		for(let i=0;i<data.length;i++){
+			sums = data[i].s + data[i].ss + data[i].sss;
+			time.push(data[i].monthdate);
+			sSum.push(sums);
+		}
+		mindate = time[0];
+		var myChart1=echarts.init(document.getElementById('chart1'));
+        myChart1.setOption(setOptionData(time,'每日S级以上总数',sSum,'{value}次'));
+	}
+	function setOptionData(time,data1,data2,format){
+		var option1 ={
+        	grid:{left:'5%',top:'7%',right:'6%'},
+		 	tooltip:{
+	        	trigger: 'axis',
+	        	axisPointer:{
+	        		type:'cross',
+	        		lineStyle:{color:'rgb(170,170,170)',type:'solid',width:1},
+	        		crossStyle:{color:'rgb(170,170,170)',type:'dashed',width:1},
+	        	}
+	        },
+            title: {
+                text: ''
+            },
+            legend: {
+                data:[data1]
+            },
+            xAxis: {
+                data: time
+            },
+            yAxis: {
+            	 axisLabel : {formatter: format},
+            },
+            series: [{
+                name: data1,
+                type: 'line',
+                smooth:true,
+                data: data2
+            }]
+        }
+		return option1;
+	}
+	var sLevel = null,dateTime2 = null,pageNow = 1;
+	$('#orderS').click(function(){sLevel = 'S';getDetails(pageNow,dateTime2,sLevel)})
+	$('#orderSS').click(function(){sLevel = 'SS';getDetails(pageNow,dateTime2,sLevel)})
+	$('#orderSSS').click(function(){sLevel = 'SSS';getDetails(pageNow,dateTime2,sLevel)})
+	$('#orderAll').click(function(){sLevel = null;getDetails(pageNow,dateTime2,sLevel)})
+	function getDetails(pageNow,a,b){
+		var count = 0;
+		var a1 = a.split('~');
+		$.ajax({
+			type:"post",
+			url:"/kugou/public/index.php/home/showerlist/starRealSong",
+			data:{page:pageNow,pagesize:20,roomid:{$roomid},begindate:$.trim(a1[0]),enddate:$.trim(a1[1]),level:b},
+			async:true,
+			success:function(data){
+				$('#tbody').empty();count = Math.ceil(data.count/20);
+				var con = '',data = data.data;
+				for (let i = 0;i<data.length;i++) {
+					con += `
+							<tr>
+								<td style="padding-left: 30px;">${data[i].datetime}</td>
+								<td>${data[i].songName}</td>
+								<td>${data[i].level}</td>
+							</tr>
+						`
+				}
+				$('#tbody').append(con);		
+			},
+			complete:function(){
+				$("#new-page").pagination({
+					currentPage: pageNow,
+					totalPage: count,
+					isShow: true,
+					count:5,
+					homePageText: "首页",
+					endPageText: "尾页",
+					prevPageText: "上一页",
+					nextPageText: "下一页",
+					callback: function(current) {
+						getDetails(current,dateTime2,sLevel)
+					}
+				});
+			}
+		});
+    }
+</script>
+{/block}

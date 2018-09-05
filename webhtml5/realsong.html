@@ -1,0 +1,344 @@
+{extend name="common:base" /}
+{block name="title"}真唱数据{/block}
+{block name="link"}
+<link rel="stylesheet" type="text/css" href="__STATIC__/home/mater/css/sw-css/jquery.pagination.css"/>
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_696058_cftf70rh8bn.css"/>
+	<style type="text/css">
+		.sw-down{
+			color: #323232;vertical-align: -3px;
+		}
+		thead>tr>th{
+			cursor: pointer;
+		}
+		.top1{
+			background:url(__STATIC__/home/mater/images/rank1.svg) no-repeat center/35px 35px;	
+			color: transparent;	
+			height: 40px;
+		}
+		.top2{
+			background:url(__STATIC__/home/mater/images/rank2.svg) no-repeat center/35px 35px;	
+			color: transparent;
+			height: 40px;	
+		}
+		.top3{
+			background:url(__STATIC__/home/mater/images/rank3.svg) no-repeat center/35px 35px;	
+			color: transparent;	
+			height: 40px;
+		}
+		#groupList{
+			width: 125px;
+			float: right;
+			margin-top: -3px;
+			margin-right: 5px;
+			margin-bottom: 0px;
+			background-color: #FFFFFF;
+			box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+		}
+		.groups{
+			display: none;
+			position: absolute;
+			top: 33px;
+			right: 10%;
+			width: 100%;
+			max-height: 600px;
+			overflow-y:auto;overflow: hidden;
+			padding-top: 3px;width: 260px;
+			background-color: transparent !important;
+		}
+		.groups-shadow{
+			display: none;
+		    height: 1px;
+		    width: 125px;
+		    background: transparent;
+		    position: absolute;
+		    top: 630px;
+		    right: 10%;
+		    margin-right: 6px;
+		    box-shadow: 0 0 0 0 rgba(0,0,0,0), 0 0 0 0 rgba(0,0,0,0), 0 0 0 0 rgba(0,0,0,0), 0 2px 4px 0 rgba(0, 0, 0, 0.7)
+		}
+		.group-list{
+			display: flex;
+			flex-flow: row wrap;
+		}
+		
+		.group-list li{
+			position: relative;
+			width: 100%;
+		    line-height: 2;
+		    text-align: center;
+		    cursor: pointer;
+		    color: #333;
+		    padding: .35rem;
+		}
+		.group-list li ul{
+			display: none;
+			position: absolute;
+			top: 0px;
+			left: -100%;
+			background-color: #FFFFFF;
+			width: 125px;
+			box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12),0 2px 10px 0 rgba(0, 0, 0, 0.12);
+		}
+		.group-list>li:hover ul{
+			display: block;
+		}
+		.group-list li:hover .sw-array{
+			transform: rotate(90deg);
+			transition: all .4s;
+		}
+		.group-all:hover .groups{
+			display: block;
+		}
+		.group-all:hover .groups-shadow{
+			display: block;
+		}
+		.group-all:hover::after{
+			display: block;
+		}
+		
+		.group-list li:hover{
+			background-color: #FCBB18;
+			color: #FFFFFF;
+		}
+		.sw-array{
+			position: absolute;
+		    left: 0px;
+		    top: 50%;
+		    margin-top: -9px;
+		    transform: rotate(-90deg);
+		    font-size: 18px;
+		}
+
+		#selectMonth {
+		    width: 190px;
+		    border: 1px solid #DDDDDD;
+		    height: 33px;
+		    border-radius: 5px;
+		    text-indent: 60px;
+		    letter-spacing: 4px;
+		    margin-bottom: 15px;
+		}
+		input[type=text] {
+		    border: 1px solid #DDDDDD;
+		    height: 20px;
+		    width: 32px;
+		    font-size: 13px;
+		    margin: 0;
+		    text-indent: .2rem;
+		}
+		input[type=text]:focus:not([readonly]){
+		    border-bottom: 1px solid #DDDDDD !important;
+		    box-shadow: none !important;
+		}
+		.goroom {
+		    border: 1px solid transparent;
+		    color: #41A77B;
+		    padding: 3px;
+		    border-radius: 3px;
+		    box-shadow: 0px 0px 1px #888888;
+		    font-weight: 300;
+		}
+</style>
+{/block}
+{block name="main"}
+<section id="content" style="border: 1px solid #ddd;margin: 20px;">
+	<!--breadcrumbs start-->
+    <div id="breadcrumbs-wrapper">
+        <div class="container container_showlst">
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <h5 class="breadcrumbs-title" style="position: relative;">真唱数据 <i class="iconfont icon-aui-icon-question" style="font-size: 20px; position: absolute;top: -5px; left: 95px;"></i></h5>
+                    <ol class="breadcrumb">
+                        <li><a href="javascript:;">首页</a>
+                        </li>
+                        <li class="active">主播信息</li>
+                        <li class="active">真唱数据</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs end-->
+	<div style="padding: 0 20px;margin: 20px 0;">
+		
+	   	<div class="main">
+	   		<div class="main-header">
+				<div class="left mid-style">
+	    			<div class="chooseMonth allChoose" style="position: relative;">
+	    				<i class="iconfont icon-icon-calendar" style="position: absolute;top: 5px;left: 30px;"></i>
+	    				<input type="text" id="selectMonth" value="2018-06" />
+	    				<span style="font-size: 12px;color: #666666;margin-left: 10px;">数据采集时间为:<span id="beginTime" style="color: #039be5;margin-left: 10px;"></span> ~ <span id="endTime" style="color: #039be5;"></span></span>
+	    			</div>
+	    		</div>
+			</div>
+	   		<table border="0" cellspacing="0" cellpadding="0">
+	   			<thead>
+	   				<tr>
+	   					<th class="center" style="width: 8%;">排行</th>
+	   					<th style="width: 18%;">主播</th>
+	   					<th class="center" id="sLev" style="width: 13%;">s级次数<i class="mdi-hardware-keyboard-arrow-down sw-down"></i></th>
+	   					<th class="center" id="ssLev" style="width: 13%;">ss级次数<i class="mdi-hardware-keyboard-arrow-down sw-down"></i></th>
+	   					<th class="center" id="sssLev" style="width: 13%;">sss级次数<i class="mdi-hardware-keyboard-arrow-down sw-down"></i></th>
+	   					<th class="center" id="snum" style="width: 13%;"><span id="monthNum">6</span>月s级以上总计<i class="mdi-hardware-keyboard-arrow-down sw-down"></i></th>
+	   					<th style="position: relative;" class="group-all center" style="width: 10%;">
+							<span id="groupName" groupid="all">全部分组</span>
+							<i class="mdi-hardware-keyboard-arrow-down sw-down" style="color: #323232;vertical-align: -3px;"></i>
+							<div class="groups" id="page-scorll">
+								<ul class="group-list" id="groupList">
+									<li groupid="all">
+										<span>全部分组</span>
+									</li>
+									<li groupid="0"><span>未分组</span></li>
+								</ul>
+							</div>
+							<div class="groups-shadow"></div>
+						</th>
+	   					<th class="center" style="width: 8%;">&nbsp;</th>
+	   				</tr>
+	   			</thead>
+	   			<tbody id="tbody">
+	   					
+	   			</tbody>
+	   		</table>
+	   		
+	   		<div class="row" style="margin-top: 20px;">
+				<div class="col s12 m12 l12 ">
+	                <div id="fenye-page">
+	                    <div id="new-page" class="page fl center-align"></div>
+	                </div>
+	            </div>
+			</div>
+	   	</div>
+	</div>
+</section>
+
+{/block}
+{block name="js"}
+	<script type="text/javascript" src="__STATIC__/home/mater/js/sw-js/jquery.pagination.min.js"></script>
+	<script src="__STATIC__/home/mater/js/sw-js/laydate/laydate.js"></script>
+	<script>
+		var pageNow = 1,order=null,groupid=null,dateTime = null;
+		function getRealSong(pageNow,order,dateTime,groupid){
+			var con = null,count = null,a = null;
+			$.ajax({
+				type:"post",
+				url:"/kugou/public/index.php/home/showerlist/daySongPage",
+				data:{page:pageNow,pagesize:20,order:order,groupid:groupid,date:dateTime},
+				async:true,
+				success:function(data){
+					if(a != data.date.mindate || a == null){
+						$('#beginTime').text(data.date.mindate);
+						$('#endTime').text(data.date.maxdate);
+						a = data.date.mindate;
+					}
+					var index = null;
+					count = Math.ceil(data.count/20),aData = data.data;
+					for(let i =0;i<aData.length;i++){
+						index = (pageNow-1)*20+i+1;
+						con += `<tr>
+								<td class="center top${index}">${index}</td>
+								<td style="height:40px;line-height:40px"><img src ="${aData[i].userlogo}" width="40" height="40" class="circle sw-img"/>
+									<span style="margin-left:10px;">
+										<a href="/kugou/public/home/showerlist/showerMes/roomid/${aData[i].roomid}" target="_blank">${aData[i].nickname}</a>
+									</span>
+								</td>
+								<td class="center">${aData[i].s_level}</td>
+								<td class="center">${aData[i].ss_level}</td>
+								<td class="center">${aData[i].sss_level}</td>
+								<td class="center">${aData[i].snum}</td>
+								<td class="center">${aData[i].groupname}</td>
+								<td class="center"><a class="goroom" href="/kugou/public/index.php/home/showerlist/realsongdetail/roomid/${aData[i].roomid}" target="_blank">查看详情</a></td>
+						   </tr>`
+					}
+					$('#tbody').html(con);
+				},
+				complete:function(){
+					$("#new-page").pagination({
+						currentPage: pageNow,
+						totalPage: count,
+						isShow: true,
+						count:5,
+						homePageText: "首页",
+						endPageText: "尾页",
+						prevPageText: "上一页",
+						nextPageText: "下一页",
+						callback: function(current) {
+							getRealSong(current,order,groupid);
+						}
+					});
+				}
+			});
+		}
+		$('#sLev').click(function(){getRealSong(pageNow,'s_level')})
+		$('#ssLev').click(function(){getRealSong(pageNow,'ss_level')})
+		$('#sssLev').click(function(){getRealSong(pageNow,'sss_level')})
+		$('#yesterdaynum').click(function(){getRealSong(pageNow,'yesterdaynum')})
+		$('#snum').click(function(){getRealSong(pageNow,'snum')})
+		var roleid="{$Think.session.loginuser.roleid}";
+		$('#page-scorll').perfectScrollbar({suppressScrollX: true})
+		groups();
+		function groups(){
+			$.ajax({
+				type:"post",
+				url:"/kugou/public/index.php/home/clanmanage/grouptree",
+				async:true,
+				success:function(data){
+					var groupList=$('#groupList'),con='',con2='';
+					for(var i=0;i<data.length;i++){
+						if(data[i].children.length != 0){
+							con2 = groupList2(data[i].children)
+							con +='<li groupid='+data[i].groupid+'><i class="mdi-hardware-keyboard-arrow-down sw-array"></i><span>'+data[i].groupname+'</span>'+
+							'<ul>'+con2+'</ul></li>';
+						}else{
+							con +='<li class="groupChild" groupid='+data[i].groupid+'><span>'+data[i].groupname+'<span></li>';
+						}
+					}
+					groupList.append(con);
+				},
+				complete:function(){
+					groupid=$('#groupName').attr('groupid');
+					groupid == 'all'?getRealSong(pageNow,order,dateTime):getRealSong(pageNow,order,dateTime,groupid);
+					$('#groupList li').click(function(e){
+						e.stopPropagation();
+						groupid=$(this).attr('groupid');
+						$('#groupName').text($(this).find('span').eq(0).text());
+						groupid == 'all'?getRealSong(pageNow,order,dateTime):getRealSong(pageNow,order,dateTime,groupid)
+					})
+				}
+			})
+		}
+		
+		function groupList2(data){
+			var con = '';
+			for(let i = 0;i<data.length;i++){
+				con += '<li groupid='+data[i].groupid+'><span>'+data[i].groupname+'<span>'
+			}
+			return con;
+		}
+		
+		$(function(){
+			var datenow=new Date();
+			var year=datenow.getFullYear();
+			var month=(datenow.getMonth()+1)>9?(datenow.getMonth()+1):('0'+(datenow.getMonth()+1));
+			var maxDate=year+'-'+month+'-01';
+			$('#selectMonth').val((year +'-'+ month));
+			$('#monthNum').text(datenow.getMonth()+1)
+			laydate.render({
+		        elem: '#selectMonth', 
+		        type:'month',
+		        format:'yyyy-MM',
+		        min: '2018-07-01',
+		        max:maxDate,
+		        showBottom:false,
+		        change:function(value){
+		        	dateTime = value+'-01';
+					$('#layui-laydate1').hide();
+					$('#selectMonth').val(value);
+					groupid == 'all'?getRealSong(pageNow,order,dateTime):getRealSong(pageNow,order,dateTime,groupid)
+		        }
+		   });
+		})
+		
+		
+	</script>
+{/block}

@@ -1,0 +1,240 @@
+{extend name="common:base" /} {block name="title"}小组对账页面{/block} {block name="link"}
+<link rel="stylesheet" href="__STATIC__/home/mater/js/sw-js/laydate/theme/default/laydate.css?v=2.100">
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_707280_5sn00zubjsv.css">
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_737706_37whnisgunj.css">
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_818534_wplwmuvkhdj.css">
+
+<link rel="stylesheet" href="__STATIC__/home/mater/css/css-shadow.css?v=2.100">
+<!-- <link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_737706_btbldci99fb.css"> -->
+<!-- <link rel="stylesheet" href="__STATIC__/home/mater/css/style.css"> -->
+<!-- <link href='http://cdn.webfont.youziku.com/webfonts/nomal/121252/46010/5b59884cf629d9117cc357bb.css' rel='stylesheet' type='text/css' /> -->
+<style>
+    .row {
+        margin-bottom: 0rem;
+    }
+
+    .section {
+        padding-bottom: 0rem;
+    }
+</style>
+{/block} {block name="main"}
+<section id="content" class="page-fa" style="overflow: hidden;">
+    <!-- WEB端 -->
+    <!-- 面包屑导航开始 -->
+    <div id="breadcrumbs-wrapper" class="bread" style="height: 105px;">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m3 l3">
+                    <h5 class="breadcrumbs-title css137ae5b46a1d9a4" style="color: #fff;">对账系统
+                        <i data-title="" class="iconfont icon-aui-icon-question my-title">
+                            <ul class="title-after">
+                                <li>● 点击
+                                    <strong>下载模板</strong>下载导入数据模板</li>
+                                <li>● 按格式填充数据后,点击
+                                    <strong>选择文件</strong>
+                                </li>
+                                <li>● 选择
+                                    <strong>数据日期</strong>导入表格</li>
+                                <li>● 点击相应分组获取相应数据</li>
+                                <li>● 点击
+                                    <strong>导出EXCEL</strong>导出数据</li>
+                                <li>● 点击
+                                    <strong>人数</strong>查看分组主播详情数据</li>
+                                <li>● 点击
+                                    <strong>红色数字</strong>可修改抽成比例</li>
+                            </ul>
+                        </i>
+                    </h5>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a style="color: #fff; font-weight: 100!important;" href="index.html">首页</a>
+                        </li>
+                        <li>
+                            <a style="color: #fff; font-weight: 100!important;" href="#">工具箱</a>
+                        </li>
+                        <li class="active" style="color: #FCBB18; font-weight: 100!important;">对账系统</li>
+                    </ol>
+                </div>
+                <div class="col s12 m6 l6 time-scroll">
+                </div>
+                <div class=" col s12 m3 l3 box-flex-div offset-m6 offset-l6 hide">
+                    <ul class="box-flex-ul center-right">
+                        <li class="box-flex-input">
+                            <input id="idinput" type="text" placeholder="请输入主播ID/主播房间ID">
+                        </li>
+                        <li class="box-flex-button">
+                            <span style="display: inline-block; width:100%;">
+                                <a class="waves-effect waves-light btn">查询</a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form id="check-form" action="/kugou/public/index.php/home/exportexcel/exportCheckMoney" method="post" onsubmit="return check(this)"
+        enctype="multipart/form-data">
+        <div style="height: 3rem; line-height: 3rem; background: #0097A7;">
+            <span style="position: relative; margin-left: 1rem; color: #fff;">
+                <input style="cursor: pointer;" type="file" name="checkmoney" accept=".xls,.xlsx, .csv" />
+                <i title="● 在繁星后台导出的【主播收入汇总】 EXCEL表，导入此处." class="iconfont icon-aui-icon-question my-title" style="position: absolute; left: 12rem;font-size: 15px!important;">
+                </i>
+            </span>
+            <span style="display: inline-block; background: #0097A7; padding-left:3rem; margin-left: 1px; color: #fff;">数据日期:
+                <input id="month-num" name="month" type="text" style="width: 8rem; background: #fff; color: black; height: 1.7rem; text-indent: 10px;">
+            </span>
+            <input type="submit" value="确认上传"></input>
+            <input class="button-x" type="button" value="查询">
+            <span class="right" style="margin-right: 1rem;">
+                <a style="color: #fff;" href="/kugou/public/index.php/home/exportexcel/checkmoneyTemplate">点此下载模板</a>
+            </span>
+        </div>
+    </form>
+    <!-- 开始内容 -->
+    <div id="move-small" class="section">
+        <div id="grid-responsive" class="section">
+            <div class="row">
+                <div class="col s12 m12 l12 page-position">
+                    <div class="card-panel move" style="margin-top: -1px!important;">
+                        <div class="row">
+                            <div class="col s12 m12 l12" style="border-top: 1px solid #dcdcdc; padding: 0rem;">
+                                <div style="height: 3rem; background: #0097A7;border-right: 1px solid #dcdcdc; line-height: 3rem; text-align: center; color: #fff;">
+                                    <div class="check-head" style="display: flex;">
+                                        <span style="flex-grow: 1;width: 3rem; text-align: right;">小组名称</span>
+                                        <span style="flex-grow: 1;width: 3rem; text-align: right;">组人数
+                                            <i class="mdi-hardware-keyboard-arrow-down" id="group-num-order" style="color: rgb(50, 50, 50); vertical-align: middle; font-size: 14px; cursor: pointer;"></i>
+                                        </span>
+                                        <span style="flex-grow: 1;width: 5rem; text-align: right;">主播结算金额(星豆)
+                                            <i class="mdi-hardware-keyboard-arrow-down" id="per-num-order" style="color: rgb(50, 50, 50); vertical-align: middle; font-size: 14px; cursor: pointer;"></i>
+                                        </span>
+                                        <span style="flex-grow: 1;width: 5rem; text-align: right;">工会抽成(星豆)
+                                            <i class="mdi-hardware-keyboard-arrow-down" id="union-num-order" style="color: rgb(50, 50, 50); vertical-align: middle; font-size: 14px; cursor: pointer;"></i>
+                                        </span>
+                                        <span style="flex-grow: 1;width: 5rem; text-align: right;">家族收益(星豆)
+                                            <i class="mdi-hardware-keyboard-arrow-down" id="home-num-order" style="color: rgb(50, 50, 50); vertical-align: middle; font-size: 14px; cursor: pointer;"></i>
+                                            <span style="position: relative;">
+                                                <input id="home-earn" style="width: 1.5rem;color: red; height: 1.5rem;background: #fff;border: 1px solid #dcdcdc;margin-left: 5px;text-align: center;"
+                                                    type="text" value="0">%
+                                                <i title="● 家族收益=（结算星豆+工会抽成）*10% 可自定义" class="iconfont icon-aui-icon-question my-title"
+                                                    style="position: absolute; font-size: 15px!important;">
+                                                </i>
+                                            </span>
+                                        </span>
+                                        <span style="flex-grow: 1;width: 5rem; text-align: right;">应发金额(元)
+                                            <i class="mdi-hardware-keyboard-arrow-down" id="pay-num-order" style="color: rgb(50, 50, 50); vertical-align: middle; font-size: 14px; cursor: pointer;"></i>
+                                            <span>
+                                                <input id="per-earn" style="width: 1.5rem;color: red; height: 1.5rem;background: #fff;border: 1px solid #dcdcdc;margin-left: 5px;text-align: center;"
+                                                    type="text" step="0.1" value="0">%
+                                                <i title="● 应发金额：6% 为扣税6%  可自定义" class="iconfont icon-aui-icon-question my-title"
+                                                    style="position: absolute; font-size: 15px!important;">
+                                                </i>
+                                            </span>
+                                        </span>
+                                        <span style="flex-grow: 1;width: 5rem; text-align: right; margin-right: 1rem;">导出EXCEL</span>
+                                    </div>
+                                </div>
+                                <div id="group-name">
+                                    <ul class="check-ul"></ul>
+                                </div>
+                                <div class="per-name">
+                                    <div class="per-x">X</div>
+                                    <ul>
+                                        <li style="width: 100%; display: flex; text-align: center;">
+                                            <span style="flex-grow: 1;width: 2rem;">NO.</span>
+                                            <span style="flex-grow: 1;width: 5rem;">主播昵称</span>
+                                            <span style="flex-grow: 1;width: 5rem;">主播画像</span>
+                                            <span style="flex-grow: 1;width: 5rem;">个人结算</span>
+                                            <span style="flex-grow: 1;width: 5rem;">工会抽成</span>
+                                            <span style="flex-grow: 1;width: 5rem;">家族收益</span>
+                                            <span style="flex-grow: 1;width: 5rem;">所属分组</span>
+                                            <span style="flex-grow: 1;width: 5rem;">移出本组</span>
+                                        </li>
+                                    </ul>
+                                    <ul class="per-ul"></ul>
+                                    <!-- 加载动画开始 -->
+                                    <div id="loading" style="position: absolute; background: rgba(0, 0, 0, 0)!important;">
+                                        <div class="loading-img">
+                                            <div id="loading-wrapper" class="preloader-wrapper big active">
+                                                <div class="spinner-layer spinner-blue">
+                                                    <div class="circle-clipper left">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                    <div class="gap-patch">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                    <div class="circle-clipper right">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="spinner-layer spinner-red">
+                                                    <div class="circle-clipper left">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                    <div class="gap-patch">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                    <div class="circle-clipper right">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="spinner-layer spinner-yellow">
+                                                    <div class="circle-clipper left">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                    <div class="gap-patch">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                    <div class="circle-clipper right">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="spinner-layer spinner-green">
+                                                    <div class="circle-clipper left">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                    <div class="gap-patch">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                    <div class="circle-clipper right">
+                                                        <div class="circle"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 加载动画结束 -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 内容结束 -->
+</section>
+{/block} {block name="js"}
+<script src="__STATIC__/home/mater/js/zhao-js/newPage.js?v=2.100"></script>
+<script src="__STATIC__/home/mater/js/zhao-js/jquery.pagination.min.js?v=2.100"></script>
+<script src="__STATIC__/home/mater/js/sw-js/laydate/laydate.js?v=2.100"></script>
+<script src="__STATIC__/home/mater/js/zhao-js/layer/layer.js?v=2.100"></script>
+<!-- <script src="https://xintan.oss-cn-beijing.aliyuncs.com/mxhome_new_images/js/layer.js"></script> -->
+<script src="__STATIC__/home/mater/js/zhao-js/showercheck.js?v=2.100"></script>
+<script>
+    function check(form) {
+        console.log(form.checkmoney.value)
+        if (form.checkmoney.value == '') {
+            alert("请先选择文件!");
+            form.checkmoney.focus();
+            return false;
+        }
+        if (form.month.value == '') {
+            alert("请选择数据所属月份!");
+            form.month.focus();
+            return false;
+        }
+        return true;
+    }
+</script>
+{/block}

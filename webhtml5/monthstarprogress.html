@@ -1,0 +1,987 @@
+{extend name="common:base" /}
+{block name="title"}创业费用{/block}
+{block name="link"}
+	<link rel="stylesheet" type="text/css" href="__STATIC__/home/mater/css/bootstrap.css"/>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/home/mater/css/sw-css/starProgress.css"/>
+	<link rel="stylesheet" type="text/css" href="__STATIC__/home/mater/css/sw-css/jquery.pagination.css"/>
+	<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_696058_cftf70rh8bn.css"/>
+	<style>
+		.sw-modal{
+			display: none;
+			position: fixed;
+			width: 405px;
+		    height: 445px;
+		    background-color: #fff;
+		    top: 30%;
+		    left: 50%;
+		    margin-left: -127px;
+		    padding: 22px;
+		    z-index: 999;
+		    padding-top: 10px;
+		    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+		}
+		html,body,#main,.wrapper,.sw-fade-in{
+			min-height: 100%;
+		}
+		.sw-fade-in{
+			position: fixed;
+			width: 100%;
+			background-color: #333;
+			opacity: .3;
+			z-index: 800;
+		}
+		.levelMoney{float: left;margin-bottom: 8px;}
+		.levelMoney:nth-of-type(2n){
+			float: right;
+		}
+		#tbody>tr>td:first-child{
+			width: 22%;
+		}
+		#modal1{
+			position: fixed;
+			display: none;
+			width: 720px;
+			height: 70%;
+			background-color: #FFFFFF;
+			top: 15%;
+			left: 50%;
+			margin-left: -360px;
+			z-index: 801;
+			box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+			padding: 20px;
+		}
+		#groupPre{
+			border-left: 1px solid #e0e0e0;
+		}
+		
+		#groupPre tr td{
+			line-height: 40px;
+			height: 40px;
+		}
+		.uploadExcel{
+			position: absolute;
+		}
+		.uploadExcel .upExcel {
+			position: relative;
+			top: 0px;
+			left: 0px;
+			display: inline-block;
+			background-color: #41A77B;
+			color: #FFFFFF;
+			padding: 8px 5px;
+			border-radius: 5px;
+			width: 250px;
+			height: 40px;
+			text-align: center;
+			overflow: hidden;
+			text-overflow:ellipsis;
+			white-space: nowrap;
+		}
+		#chooseDate{
+			width: 186px;
+		    height: 33px;
+		    border-radius: 5px;
+		    vertical-align: 14px;
+		    letter-spacing: 4px;
+		    text-indent: 8px;
+		}
+		button{
+			vertical-align: 17px;
+		    border: none;
+		    background-color: transparent;
+		}
+		#tips-con{
+			display: none;
+			position: absolute;
+		    top: 32px;
+		    right: -180px;
+		    background-color: #eee;
+		    font-size: 12px;
+		    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+		    padding: 10px;
+		    border-radius: 5px;
+		    z-index: 999;
+		}
+		#excel{
+			position: absolute; 
+			top: 14px; 
+			left: 12px;
+			height: 40px;
+			width: 240px;
+			margin-left: -10px;
+			margin-right: 20px;
+			display: none;
+			cursor: pointer;
+		}
+	</style>
+{/block}
+{block name="main"}
+<section id="content" style="margin: 20px 20px 0px 20px;">
+	<div id="breadcrumbs-wrapper" style="border: 1px solid #DDDDDD;border-bottom: 0px;">
+        <div class="container">
+            <div class="row">
+                <div class="col s8 m8 l8">
+                    <h5 class="breadcrumbs-title">创业费用</h5>
+                    <ol class="breadcrumb" style="background-color: #0097A7;">
+                        <li><a href="/kugou/public/index.php/home/index/index.html">首页</a></li>
+                        <li><a href="#">主播信息</a></li>
+                        <li class="active">创业费用</li>
+                    </ol>
+                </div>
+                <div class="col s4 m4 l4" style="position:relative">
+                	<div id="premission" style="position: absolute;top: 13px;right: 20px;">
+                		<a class="modal-trigger waves-effect waves-light btn" href="javascript:;">编辑查看权限</a>
+                	</div>
+                	<div class="search right" style="position: relative;top: 57px;">
+						<input id="searchShower" type="text" placeholder="输入主播酷狗id或房间号"/><i class="mdi-action-search"></i>
+					</div>
+                </div>
+            </div>
+        </div>
+  	</div>
+        <div class="clearFix">
+        	<form action="/kugou/public/index.php/home/exportexcel/starMonthincomeExcel" method="post" onsubmit="return check()" style="padding-top: 14px;position: relative;height: 67px;" enctype="multipart/form-data">
+        		<div class="uploadExcel" style="position: absolute;">
+        			<span class="upExcel">点此上传Excel数据</span><!--<span id="update" style="font-size: 12px;"></span>-->
+        			<span style="margin: 0px 0px 0px 15px;vertical-align: 14px;">数据日期:</span>
+        			<input type="text" id="chooseDate" name="month"/>
+        			<!--<i style="color: #999;font-size: 12px;vertical-align: 6px;margin-left: 10px">(仅会长可以上传数据,数据以官网为准)</i>-->
+        			<!--<input type="submit" value="确认上传" />-->
+        			<button><a class="waves-effect waves-light btn sw-change" id="select0">确认上传</a></button>
+        			<i class="iconfont icon-aui-icon-question" id="tips2" style="cursor: pointer;position: absolute;left: 635px;top: 4px;font-size: 18px;"></i>
+					<div id="tips-con">
+						<p style="margin: 0; line-height: 1.5;font-weight: normal;">只有会长才能上传数据</p>
+						<p style="margin: 0; line-height: 1.5;font-weight: normal;">数据请以右侧下载模板中的格式上传</p>
+						<p style="margin: 0; line-height: 1.5;font-weight: normal;">星豆数据以上传数据中的时间为准</p>
+						<p style="margin: 0; line-height: 1.5;font-weight: normal;">其余数据皆为当日数据</p>
+					</div>
+        		</div>
+        		<div style="margin-left: 10px;opacity: 0;">
+        			<input type="file" name="monthincome" id="excel"/>
+        		</div>
+        		<div class="right" style="line-height: 40px;">
+        			<a href="/kugou/public/index.php/home/exportexcel/starMonthincomeTemplate" >点此下载模板</a>
+        		</div>
+        	</form>
+        </div>
+	<div class="s-container clearFix" style="border: 1px solid #DDDDDD;">
+		<div class="container-tools clearFix">
+			<!--选择是否签约-->
+			<div style="position: absolute;top: 11px;left: -4px;">
+    			<i class="iconfont icon-shezhi" id="shezhi1" style="font-size: 25px;"></i>
+    		</div>
+			<div class="left" style="width: 25%;">
+				<div class="change-order" style="width: 74%;">
+		    		<ul class="tabs" id="tabs" style="border: 1px solid #9E9E9E;width: 102%;border-radius: 5px;">
+				        <li class="tab col" style="width: 33.3333%;" isex=""><a class="active" href="javascript:;">全部主播</a></li>
+				        <li class="tab col" style="width: 33.3333%;" isex="1"><a href="javascript:;">独家签约</a></li>
+				        <li class="tab col" style="width: 33.3333%;" isex="0"><a href="javascript:;">普通主播</a></li>
+				    </ul>
+	    		</div>
+			</div>
+    		<!--选择等级-->
+    		<div class="left mid-style">
+    			<div class="chooseLevel allChoose">
+    				<i class="iconfont icon-dengji" style="position: absolute;top: 0;left: 0;font-size: 30px;color: #ccc;"></i>
+    				<input type="text" id="level" placeholder="等级 默认为全部"/><span class="inButton" id="searchLevel">查询</span>
+    			</div>
+    		</div>
+			<!--选择日期-->
+    		<div class="left mid-style">
+    			<div class="chooseMonth allChoose">
+    				<i class="iconfont icon-icon-calendar"></i>
+    				<input type="text" id="selectMonth" value="2018-06"/>
+    			</div>
+    		</div>
+    		
+    		<!--选择分组-->
+    		<div class="left" style="width: 15%;margin-left: 3%;">
+				<div class="group-all" style="width:74%">
+					<span id="groupName" groupid="">全部分组</span>
+					<div class="groups" style="width: 350px;">
+						<ul class="group-list" id="groupList">
+							<li groupid="">全部分组</li>
+							<li groupid="0">未分组</li>
+						</ul>
+					</div>
+				</div>
+    		</div>
+		</div>
+		<div id="sw-loading" style="height: 800px;float: left;width:100%;display: block;background-color:#FFF;position: relative;display: none;">
+			<div  style="position: absolute;top: 50%;left: 50%;margin-top: -32px;margin-left: -32px;">
+				<div class="preloader-wrapper big active">
+				    <div class="spinner-layer spinner-blue-only">
+				        <div class="circle-clipper left">
+				        	<div class="circle"></div>
+				        </div>
+				        <div class="gap-patch">
+				        	<div class="circle"></div>
+				        </div>
+				        <div class="circle-clipper right">
+				        	<div class="circle"></div>
+				        </div>
+				    </div>
+				</div>
+				<p style="color: #333;">数据加载中....</p>
+			</div>
+		</div>
+	  	<table border="0" cellspacing="0" cellpadding="0">
+	  		<thead class="center">
+	  			<tr>
+	  				<th style="width: 15%;display: none;"></th>
+	  				<th style="width: 85%;display: none;"></th>
+	  			</tr>
+	  		</thead>
+	  		<tbody id="tbody">
+	  		</tbody>
+	  	</table>
+	  	<div class="row" style="margin-top: 20px;">
+			<div class="col s12 m12 l12 ">
+                <div class="preloader-wrapper small active" id="sw-loading2" style="left: 50%;margin-left: -18px;display: none;">
+				    <div class="spinner-layer spinner-green-only">
+				        <div class="circle-clipper left">
+				        	<div class="circle"></div>
+				      	</div>
+				      	<div class="gap-patch">
+				        	<div class="circle"></div>
+				      	</div>
+				      	<div class="circle-clipper right">
+				        	<div class="circle"></div>
+				      	</div>
+				    </div>
+				</div>
+				<p id="sw-loading3" style="text-align: center;display: none;">已经是最后一条数据了!</p>
+            </div>
+		</div>
+	</div>
+	
+	<div id="modal1">
+		<p style="text-align: right;margin: 0;"><i class="mdi-content-clear sw-close2"></i></p>
+		<div style="height: 95%;overflow-y: auto;">
+			<table border="0" cellspacing="0" cellpadding="0">
+				<tbody id="groupPre"></tbody>
+			</table>
+		</div>
+	</div>
+	
+	<div class="sw-modal">
+		<p style="text-align: right;margin: 0;"><i class="mdi-content-clear sw-close"></i></p>
+		<div class="modal-perc">
+			<p style="margin: 0px;font-size: 18px;font-weight: bold;">设置百分比</p>
+			<p style="margin-top: 0;font-size: 12px;">(此处修改 所有主播的提成比例都会变更)</p>
+			<div style="position: relative;">
+				<i class="iconfont icon-baifenbifandian" style="position: absolute;top: 3px;left: 6px;font-size: 20px;color: #ccc;"></i>
+				<input type="text" id="percent" placeholder="提成百分比" value="" style="background: #fff;width: 60%;"/><span style="margin-left: 10px;">%</span>
+				<span class="inButton" id="percTrue" style="top:7px;right:5px">确认</span>
+			</div>
+			
+			<div class="items">
+				<p style="margin: 0px;font-size: 18px;font-weight: bold;line-height: 50px;">设置保底收入</p>
+				<div class="level clearFix" id="levelMoney">
+					
+				</div>
+				<div class="right">
+					<a class="waves-effect waves-light btn sw-change" id="subLevelMoney">提交</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+{/block}
+{block name="js"}
+<script src="__STATIC__/home/mater/js/sw-js/laydate/laydate.js"></script>
+<script>
+	$('#tips2').mouseover(function(){
+		$('#tips-con').show()
+	})
+	$('#tips2').mouseleave(function(){
+		$('#tips-con').hide()
+	})
+	$(function(){
+		var today = new Date(),
+			tYear = today.getFullYear(),
+			tMon =  (today.getMonth() + 1) > 9 ?
+				   		(today.getMonth() + 1) :
+				   		'0'+(today.getMonth() + 1),
+			tDate = today.getDate() > 9 ?
+						today.getDate() :
+						'0'+today.getDate(),
+			maxDate = tYear + '-' + tMon + '-' + tDate;
+		//选择上传日期
+		laydate.render({
+	        elem: '#chooseDate', 
+	        format:'yyyy-MM',
+	        type:'month',
+	        max:maxDate,
+	        showBottom:false,
+	        change:function(value){
+	        	$('#chooseDate').val(value);
+	        }
+	   	});
+	})
+	
+	function check() {
+		if ( !$('#excel').val() ) {
+			alert('数据不能为空!')
+			return false;
+		}
+		if( !$('#chooseDate').val() ) {
+			alert('时间不能为空!');
+			return false;
+		}
+	}
+	$(function(){
+		$('#excel').change( function() {
+			if( !$(this).val() ){
+				alert('数据不能为空!')
+				return;
+			}
+			var name = $(this).val().split('\\');
+			var expandName = $(this).val().split('.')[1];
+			if( expandName === 'xls' || expandName === 'xlsx' || expandName === 'csv' ){
+				$('.uploadExcel .upExcel').text( name[ name.length-1 ] );
+				$('.uploadExcel .upExcel').attr( 'title', name[ name.length-1 ] )
+			}else{
+				alert('数据扩展名只能为 .xls, .xlsx 或 .csv!')
+			}
+		} )
+		//编辑权限
+		if('{$Think.session.loginuser.roleid}' != 1){
+			$('#premission').empty();
+		}
+		if('{$Think.session.loginuser.roleid}' == 1){
+			$('#excel').show();
+		}
+		var con = '';
+		$.ajax({
+			type:"post",
+			url:"/kugou/public/index.php/home/clanmanage/groupUserPower",
+			async:true,
+			success:function(data){
+				for(let i=0;i<data.length;i++){
+					if(data[i].children.length != 0){
+						var con2=doChildern(data[i].children)
+						con +=`
+							<tr class="light-blue" style="color:#fff">
+								<td style="text-indent:30px;">${data[i].groupname}</td>
+								<td class="center">权限</td>
+							</tr>
+							${con2};
+							`
+					}
+				}
+				$('#groupPre').html(con);
+			}
+		});
+		function doChildern(data){
+			var con='';
+			var inputBox = '';
+			for(let i = 0;i<data.length;i++){
+				if(data[i].monthmoney == 2){
+					inputBox='<input type="checkbox" onclick="change(this,'+data[i].userid+')">'
+				}else{
+					inputBox='<input type="checkbox" onclick="change(this,'+data[i].userid+')" checked>'
+				}
+				con += `
+						<tr>
+							<td class="center">${data[i].username}</td>
+							<td class="center">
+								<div class="switch">
+									<label>关${inputBox}<span class="lever"></span>开</label>
+								</div>
+							</td>
+						</tr>
+					`
+			}
+			return con;
+		}
+	})
+	function change(e,userid){
+		if($(e).is(':checked')){
+			changeUnio(userid,1)
+		}else{
+			changeUnio(userid,2)
+		}
+	}
+	
+	function changeUnio(userid,uion){
+		$.ajax({
+			type:"post",
+			url:"/kugou/public/index.php/home/sender/modifyUserpower",
+			data:{userid:userid,monthmoney:uion},
+			async:true,
+			success:function(){}
+		});
+	}
+	var pageNow=1,count=0,isex='',groupid=$('#groupName').attr('groupid'),onOff=true;
+		level='',lev=0,Ddate='',roleid="1";
+		$('#sw-loading').show(),a=[],lock=true;
+		showerLevel(pageNow,groupid,isex,level,Ddate);
+	choice();
+	
+	$('#shezhi1').click(function(e){
+		$('.each-perc').hide();
+	})
+	//大百分比
+	$('#percTrue').on('click',function(){
+		var percent=$('#percent').val();
+		if(percent!=''&&percent!=null && !isNaN(percent)){
+			addPerc('',percent);
+			$('.sw-modal').fadeOut(200);
+			$('.sw-fade-in').fadeOut(200);
+		}else {
+			alert('请正确输入百分比')
+		};
+	})
+	function showerLevel(page,groupid,isex,level,Ddate,roomid){
+		if(!roomid){
+			$('#searchShower').val('');
+		}
+		pageNow=pageNow+1;
+		var Adata='';
+		$.ajax({
+			type:"post",
+			url:"/kugou/public/index.php/home/showerlist/monthStarProgressPage",
+			async:true,
+			data:{page:page,pagesize:20,groupid:groupid,isex:isex,level:level,roomid:roomid,date:Ddate},
+			success:function(data){
+				$('#sw-loading').fadeOut(200);
+				$('#tbody').show();
+				Adata= data.data;
+				if(Adata[0].month){
+					var name =  Adata[0].month.split('-')[1] + '月星豆数据<span style="font-size: 12px;">(上传于:'+Adata[0].date+')</span>';
+					var name2 = Adata[0].month.split('-')[1] + '月星豆数据(上传于:'+Adata[0].date+')';
+					$('.uploadExcel .upExcel').html( name );
+					$('.uploadExcel .upExcel').attr( 'title', name2 )
+					$('#excel').attr( 'title', name )
+				}
+				if(Adata && Adata.length!=0){
+					$('#sw-loading2').hide();
+					$('#sw-loading3').hide();
+					if(!lock){
+						doJson(Adata,a);
+					}
+				}else{
+					$('#sw-loading2').hide();
+					$('#sw-loading3').show()
+					onOff=false;
+				}
+			},
+			complete:function(){
+				if(lock){
+					selectLevel(Adata);
+				}
+				$('.step li').mouseover(function(){
+					var className=$(this).attr('class');
+					var need=$(this).find('.need').children('p.status');
+					if(className&&className.indexOf('active')>=0){
+						need.text('已完成');
+					}else{
+						need.text('未完成');
+					}
+				})
+				$(document).click(function(){
+					$('.each-perc').hide();
+				})
+			}
+		})
+	}
+	
+	$(window).on('scroll',function(){
+		if($('#sw-loading2').css('display') == 'none' && onOff){
+			if($('#searchShower').val()){
+				return false;
+			}
+			var scrollTop = $(this).scrollTop();
+			var scrollHeight = $(document).height();
+			var windowHeight = $(this).height();
+			if(scrollTop + windowHeight == scrollHeight){
+				$('#sw-loading2').show();
+				showerLevel(pageNow,groupid,isex,level,Ddate);
+			}
+		}
+	});
+	
+	function doJson(data,a){
+		var tbody=$('#tbody'),con='';
+		for(let i=0;i<data.length;i++){
+			var perceData=data[i].percent || 0;
+			var per=1-parseFloat(perceData/100).toFixed(2);
+			var income=(parseFloat(data[i].income/10000)*per).toFixed(1);
+			var liveTime=parseInt(data[i].liveminute/60);
+			var exdate=data[i].exdate;
+			var isex=data[i].isex;
+			var steps=judge( income, liveTime, isex, data[i].shower );
+			var signImg='';
+			if(exdate !=0 && isex != 0){
+				signImg='<img src="http://s3.fx.kgimg.com/fxstatic/images/index-icon-xing.png" width="15" height="15" class="sign-img"/>';
+			}else{
+				signImg='';
+			}
+			var dataInfo=steps+','+income+','+liveTime+','+isex+','+data[i].activedays;
+			con='<tr steps="'+dataInfo+'"><td><div class="left each-shower" style="position:relative"><div class="each-perc">'+
+				'<div class="perc2"><p class="shower-name" roomid="'+data[i].roomid+'" style="color:#41a77b;text-indent:0px">'+data[i].nickname+'<i class="right mdi-content-clear sw-close2"></i></p>'+
+				'<p class="m-b10">当前提成比:<span class="one-perc">'+perceData+'</span>% </p>'+
+				'<i class="iconfont icon-baifenbifandian"></i>'+
+    			'<input type="text" placeholder="提成百分比" value="'+perceData+'"/><span style="margin-left: 10px;">%</span>'+
+    			'<span class="inButton" style="top:70px;right:19px">确认</span></div>'+
+				'</div><i class="iconfont icon-shezhi"></i></div>'+
+				'<div class="left" style="position: relative;"><a href="/kugou/public/index.php/home/showerlist/showerMes/roomid/'+data[i].roomid+'" target= "_blank"><img src="'+data[i].userlogo+'" width="50" height="50" class="sw-img img-circle"/></a>'+signImg+'</div>'+
+				'<div class="left"><p style="line-height: 25px;margin: 0;">'+data[i].nickname+'</p>'+
+				'<p style="font-size: 12px;line-height: 25px;margin: 0;color: #41A77B;">组名:'+data[i].groupname+'</p></span></div></td><td>'+
+				'<ul class="nav nav-pills nav-justified step step-round" data-step="'+steps+'">'+
+				'<li><a>'+a[0]+'</a><div class="need"><p>保底收入: '+a[0]+'元</p><p>需要星豆: 2w</p><p>需要时长: 50h</p><p class="status"></p><p class="needIncome"></p><p class="needTime"></p><p class="needIsex"></p></div><div class="red-point"></div></li>'+
+				'<li><a>'+a[1]+'</a><div class="need"><p>保底收入: '+a[1]+'元</p><p>需要星豆: 4w</p><p>需要时长: 60h</p><p class="status"></p><p class="needIncome"></p><p class="needTime"></p><p class="needIsex"></p></div><div class="red-point"></div></li>'+
+				'<li><a>'+a[2]+'</a><div class="need"><p>保底收入: '+a[2]+'元</p><p>需要星豆: 8w</p><p>需要时长: 60h</p><p class="status"></p><p class="needIncome"></p><p class="needTime"></p><p class="needIsex"></p></div><div class="red-point"></div></li>'+
+				'<li><a>'+a[3]+'</a><div class="need"><p>保底收入: '+a[3]+'元</p><p>需要星豆: 10w</p><p>需要时长: 30h</p><p class="status"></p><p class="needIncome"></p><p class="needTime"></p><p class="needIsex"></p></div><div class="red-point"></div></li>'+
+				'<li><a>'+a[4]+'</a><div class="need"><p>保底收入: '+a[4]+'元</p><p>需要星豆: 12.5w</p><p>需要时长: 50h</p><p class="status"></p><p class="needIncome"></p><p class="needTime"></p><p class="needIsex"></p></div><div class="red-point"></div></li>'+
+				'<li><a>'+a[5]+'</a><div class="need"><p>保底收入: '+a[5]+'元</p><p>需要星豆: 15w</p><p>需要时长: 30h</p><p class="status"></p><p class="needIncome"></p><p class="needTime"></p><p class="needIsex"></p></div><div class="red-point"></div></li>'+
+				'<li><a>'+a[6]+'</a><div class="need"><p>保底收入: '+a[6]+'元</p><p>需要星豆: 25w</p><p>需要时长: 50h</p><p class="status"></p><p class="needIncome"></p><p class="needTime"></p><p class="needIsex"></p></div><div class="red-point"></div></li>'+
+				'<li><a>'+a[7]+'</a><div class="need"><p>保底收入: '+a[7]+'元</p><p>需要星豆: 50w</p><p>需要时长: 50h</p><p class="status"></p><p class="needIncome"></p><p class="needTime"></p><p class="needIsex"></p></div><div class="red-point"></div></li>'+
+				'<li><a>'+a[8]+'</a><div class="need"><p>保底收入: '+a[8]+'元</p><p>需要星豆: 100w</p><p>需要时长: 50h</p><p class="status"></p><p class="needIncome"></p><p class="needTime"></p><p class="needIsex"></p></div><div class="red-point"></div></li>'+
+				'<li><a>'+a[9]+'</a><div class="need"><p>保底收入: '+a[9]+'元</p><p>需要星豆: 150w</p><p>需要时长: 50h</p><p class="status"></p><p class="needIncome"></p><p class="needTime"></p><p class="needIsex"></p></div><div class="red-point"></div></li>'+
+				'<li><a>'+a[10]+'</a><div class="need"><p>保底收入: '+a[10]+'元</p><p>需要星豆: 300w</p><p>需要时长: 50h</p><p>需要繁星独家签约</p><p class="status"></p><p class="needIncome"></p><p class="needTime"></p><p class="needIsex"></p></div><div class="red-point"></div></li>'+
+				'<li><a>'+a[11]+'</a><div class="need"><p>保底收入: '+a[11]+'元</p><p>需要星豆: 600w</p><p>需要时长: 50h</p><p>需要繁星独家签约</p><p class="status"></p><p class="needIncome"></p><p class="needTime"></p><p class="needIsex"></p></div><div class="red-point"></div></li>'+
+				'<li class="thirteen"><a>'+a[12]+'</a><div class="need"><p>保底收入: '+a[12]+'元</p><p>需要星豆: 1200w</p><p>需要时长: 50h</p><p>需要繁星独家签约</p><p class="status"></p><p class="needIncome"></p><p class="needTime"></p><p class="needIsex"></p></div><div class="red-point" style="right:15%"></div></li></ul></td></tr>';
+			tbody.append(con);
+		}
+		if (roleid!=1) {
+			$('.iconfont.icon-shezhi').css('display','none');
+		}
+		bsStep();
+		//改变数值 改变条子长度
+		$('.each-perc').each(function(index){
+			var $input=$(this).find('input');
+			$input.val($('#percent').val())
+			$input.focus(function(){
+				var $this=$(this);
+				$this.keyup(function(){
+					var per=1 - parseFloat($this.val()/100).toFixed(2);
+					if(per.length!=0&&!isNaN(per)){
+						eachPerc(index,per,data)
+					}
+				})
+			})
+		});
+		//每一个百分比显示
+		$('.each-shower .iconfont.icon-shezhi').click(function(e){
+			$('.each-perc').hide();
+			var div=$(this).siblings('.each-perc');
+			e.stopPropagation();
+			div.toggle();
+			div.click(function(e){
+				e.stopPropagation();
+			}) 
+		})
+		//修改每一个百分比
+		$('.each-shower .inButton').on('click',function(){
+			var roomid=$(this).siblings('.shower-name').attr('roomid'),
+				percent=$(this).siblings('input').val();
+			if(percent!=null&&percent!=''&& !isNaN(percent)){
+				addPerc(roomid,percent,$(this));
+				$(this).siblings('.m-b10').find('.one-perc').text(percent);
+			}else{
+				alert('请正确输入百分比');
+			}
+		})
+		
+		$('.sw-close2').on('click',function(){
+			$(this).parents('.each-perc').hide();
+		})
+	}
+	
+	
+	function eachPerc(index,perc,Adata){
+		var per=parseFloat(percent/100).toFixed(2);
+		var sel='#tbody tr:eq('+index+')';
+		var a=$(sel).attr('steps');
+		var b=a.split(',');
+		b[1]=parseFloat((Adata[index].income/10000)*perc).toFixed(1);
+		b[0]=judge(b[1], b[2], Adata[index].isex, Adata[index].shower);
+		$(sel).find('ul').data('step',b[0]);
+		var info=b.join(',');
+		$(sel).attr('steps',info);
+		bsStep();
+	}
+	
+	//选择分组
+	function choice(){
+		$.ajax({
+			type:"post",
+			url:"/kugou/public/index.php/home/clanmanage/grouplist",
+			async:true,
+			success:function(data){
+				var groupList=$('#groupList'),con='';
+				if(roleid !=1){
+					$('#groupName').text(data[0].groupname);
+					$('#groupName').attr('groupid',data[0].groupid);
+					$('.group').css('width','200');
+					$('#groupList >li:first').hide();
+				}
+				for(var i=0;i<data.length;i++){
+					con='<li groupid='+data[i].groupid+'>'+data[i].groupname+'</li>';
+					groupList.append(con);
+				}
+			},
+			complete:function(){
+				$('#groupList li').click(function(){
+					groupid=$(this).attr('groupid');
+					$('#groupName').text($(this).text());
+					pageNow=1;onOff=true;
+					$('#tbody').empty();
+					$('#sw-loading').show();
+					$('#tbody').hide();
+					showerLevel(pageNow,groupid,isex,level,Ddate);
+				})
+			}
+		})
+	}
+	
+	//选择是否签约
+	$('#tabs>li').click(function(){
+		isex=$(this).attr('isex');
+		$('#tbody').empty();
+		$('#sw-loading').show();
+		$('#tbody').hide();
+		pageNow=1;onOff=true;
+		showerLevel(pageNow,groupid,isex,level,Ddate);
+	})
+	//选择等级
+	$('#level').focus(function(){
+		$(window).keyup(function(){
+			lev=$('#level').val();
+			if(parseInt(lev)>13 || lev<0 || isNaN(parseInt(lev)) && lev!=null && lev!=''){
+				$('#searchLevel').hide()
+			}else{
+				$('#searchLevel').show()
+			}
+		})
+	})
+	//按等级查询
+	$('#searchLevel').click(function(){
+		level=lev;
+		if(lev == '' || lev==null){level=''};
+		$('#tbody').empty();
+		$('#sw-loading').show();
+		$('#tbody').hide();
+		pageNow=1;onOff=true;
+		showerLevel(pageNow,groupid,isex,level,Ddate);
+	})
+	//查询主播
+	$('.mdi-action-search').click(function(){
+		var str=$('#searchShower').val();
+		$('#tbody').empty();
+		$('#sw-loading').show();
+		$('#tbody').hide();
+		pageNow=1;onOff=true;
+		showerLevel(pageNow,'','','',Ddate,str)
+	})
+	$(document).keyup(function(event){
+		if(event.keyCode ==13){
+			var str=$('#searchShower').val(),
+				percent=$('#percent').val();	
+			if(str && !isNaN(str)){
+				$('#tbody').empty();
+				$('#sw-loading').show();
+				$('#tbody').hide();
+				pageNow=1;onOff=true;
+				showerLevel(pageNow,'','','',Ddate,str)
+			}
+		}
+	});
+	
+	
+	//选择日期
+	$(function(){
+		var datenow=new Date();
+		var year=datenow.getFullYear();
+		var month=(datenow.getMonth()+1)>9?(datenow.getMonth()+1):('0'+(datenow.getMonth()+1));
+		var maxDate=year+'-'+month+'-01';
+		$('#selectMonth').val((year +'-'+ month));
+		laydate.render({
+	        elem: '#selectMonth', 
+	        type:'month',
+	        format:'yyyy-MM',
+	        min: '2018-05-01',
+	        max:maxDate,
+	        showBottom:false,
+	        change:function(value){
+	        	Ddate = value+'-01'
+				$('#layui-laydate2').hide();
+				$('#selectMonth').val(value);
+				$('#tbody').empty();
+				$('#sw-loading').show();
+				$('#tbody').hide();
+				pageNow=1;onOff=true;
+				showerLevel(pageNow,groupid,isex,level,Ddate);
+	        }
+	   });
+	})
+	//渲染
+	function bsStep(i) {
+		var dengji=[
+					{'income':2,'time':50,'isex':0},{'income':4,'time':60,'isex':0},
+					{'income':8,'time':60,'isex':0},{'income':10,'time':30,'isex':0},
+					{'income':12.5,'time':50,'isex':0},{'income':15,'time':30,'isex':0},
+					{'income':25,'time':50,'isex':0},{'income':50,'time':50,'isex':0},
+					{'income':100,'time':50,'isex':0},{'income':150,'time':50,'isex':0},
+					{'income':300,'time':50,'isex':1},{'income':600,'time':50,'isex':1},
+					{'income':1200,'time':50,'isex':0}
+				]
+		$('.step').each(function() {
+			var a, $this = $(this);
+			if(i > $this.find('li').length) {
+				a=$this.find('li').length;
+			} else if(i == undefined && $this.data('step') == undefined) {
+				a = 1
+			} else if(i == undefined && $this.data('step') != undefined) {
+				a = $(this).data('step');
+			} else {
+				a = i
+			}
+			$(this).find('li').removeClass('active');
+			$(this).find('li:lt(' + a + ')').addClass('active');
+		})
+		$('#tbody tr').each(function(){
+			$(this).find('.red-point').hide();
+			var dataInfo=$(this).attr('steps').split(',');
+			var steps=dataInfo[0],income=dataInfo[1],liveTime=dataInfo[2],isex=dataInfo[3];
+			if(steps<=13){
+				var redPoint=$(this).find('.red-point')[steps-1]
+				$(redPoint).show();
+				$(redPoint).attr({ dataIncome:income, dataTime: liveTime , active: dataInfo[4]})
+			}
+			if(steps<13){
+				var tips=$(this).find('.need').eq(steps);
+				var needIncome=parseFloat(dengji[steps].income-income).toFixed(1),
+					needTime=dengji[steps].time-liveTime,
+					needIsex=dengji[steps].isex-isex;
+				if(needIncome>0){
+					tips.find('.needIncome').html('还需要:'+needIncome+'w星豆')
+				}
+				if(needTime>0){
+					tips.find('.needTime').html('还需要:'+needTime+'h ')
+				}
+				if(needIsex>0){
+					tips.find('.needIsex').html('还需要独家签约')
+				}
+			}
+		})
+		$('.red-point').mouseover(function(){
+			var $this=$(this);
+			var income=$this.attr('dataIncome'),time=$this.attr('dataTime');
+			var con='<div class="nowExe">'+
+			'<p>当前收入:'+income+'万星豆</p><p>当前时长:'+time+'小时</p><p>活跃天数:'+$this.attr('active')+'天</p></div>';
+			var li=$this.parent('li');
+			li.append(con);
+			li.find('.need').css('visibility','hidden');
+			$this.mouseleave(function(){
+				li.children('.nowExe').remove();
+				li.find('.need').css('visibility','visible');
+			})
+		})
+		
+	}
+
+	//添加百分比
+	function addPerc(roomid,percent,e){
+		$.ajax({
+			type:"post",
+			url:"/kugou/public/index.php/home/showerlist/updateStarPercent",
+			data:{roomid:roomid,percent:percent},
+			async:true,
+			success:function(result){
+				if(result.code==1){
+					if(e){
+						e.parents('.each-perc').hide();
+						alert('修改成功')
+					}else{
+						$('#tbody').empty();
+						$('#sw-loading').show();
+						$('#tbody').hide();
+						pageNow=1;onOff=true;
+						showerLevel(pageNow,groupid,isex,level,Ddate);
+					}
+				}else{
+					alert('修改失败')
+				}
+			}
+		});
+	}
+	
+	//判断等级
+	function judge(income,livetime,isex,shower){
+		if( shower <= 0 ){
+			if(income>=1200){
+				if(livetime>=50) {if(isex)return 13;else return 10}
+				else if(livetime>=30) return 6;
+				else return 0
+			}else if(income>=600){
+				if(livetime>=50) {if(isex)return 12;else return 10}
+				else if(livetime>=30) return 6;
+				else return 0
+			}else if(income>=300){
+				if(livetime>=50) {if(isex)return 11;else return 10}
+				else if(livetime>=30) return 6;
+				else return 0
+			}else if(income>=150){
+				if(livetime>=50) return 10;
+				else if(livetime>=30) return 6;
+				else return 0
+			}else if(income>=100){
+				if(livetime>=50) return 9;
+				else if(livetime>=30) return 6;
+				else return 0
+			}else if(income>=50){
+				if(livetime>=50) return 8;
+				else if(livetime>=30) return 6;
+				else return 0
+			}else if(income>=25){
+				if(livetime>=50) return 7;
+				else if(livetime>=30) return 6;
+				else return 0
+			}else if(income>=15){
+				if(livetime>=30) return 6;
+				else return 0
+			}else if(income>=12.5){
+				if(livetime>=50) return 5;
+				else if(livetime>=30) return 4;
+				else return 0
+			}else if(income>=10){
+				if(livetime>=30) return 4;
+				else return 0
+			}else if(income>=8){
+				if(livetime>=60) return 3;
+				else if(livetime>=50) return 1;
+				else return 0;
+			}else if(income>=4){
+				if(livetime>=60) return 2;
+				else if(livetime>=50) return 1;
+				else return 0;
+			}else if(income>=2){
+				if(livetime>=50) return 1;
+				else return 0;
+			}else{
+				return 0;
+			}
+		}else{
+			if ( livetime >= 30 ) {
+				if (income >= 1200) {
+					if(isex)return 13;
+					else return 10
+				} else if (income >= 600) {
+					if(isex)return 12;
+					else return 10
+				} else if (income >= 300) {
+					if(isex)return 11;
+					else return 10
+				} else if (income >= 150) {
+					return 10
+				} else if (income >= 100) {
+					return 9
+				} else if (income >= 50) {
+					return 8
+				} else if (income >= 25) {
+					return 7
+				} else if (income >= 15) {
+					return 6
+				} else if (income >= 12.5) {
+					return 5
+				} else if (income >= 10) {
+					return 4
+				} else if (income >= 8) {
+					return 3
+				} else if (income >= 4) {
+					return 2
+				} else if (income >= 2) {
+					return 1
+				} else {
+					return  0
+				}
+			} else {
+				return 0;
+			}
+		}
+		
+	}
+	function selectLevel(data){
+		$.ajax({
+			type:"post",
+			url:"/kugou/public/index.php/home/clanmanage/selectClanstarlevel",
+			async:true,
+			success:function(data){
+				var con='';
+				$('#levelMoney').empty();
+				for(var key in data){
+					a.push(data[key]);
+				}
+				for(let i = 0;i<a.length;i++){
+					con = `
+							<div class="levelMoney">
+								<span>等级${i+1}:</span>
+								<input type="text" id="levelMoney${i+1}" value="${a[i]}" style="width: 80px;"/>&nbsp;元
+							</div>
+						  `
+					$('#levelMoney').append(con);
+				}
+			},
+			complete:function(){
+				lock = false;
+				doJson(data,a);
+				$('#subLevelMoney').click(function(){
+					modifyLevelMoney();
+				})
+			}
+		});
+	}
+	function modifyLevelMoney(){
+		var level1 = $('#levelMoney1').val(),level2 = $('#levelMoney2').val(),level3 = $('#levelMoney3').val(),
+			level4 = $('#levelMoney4').val(),level5 = $('#levelMoney5').val(),level6 = $('#levelMoney6').val(),
+			level7 = $('#levelMoney7').val(),level8 = $('#levelMoney8').val(),level9 = $('#levelMoney9').val(),level10 = $('#levelMoney10').val(),
+			level11 = $('#levelMoney11').val(),level12 = $('#levelMoney12').val(),level13 = $('#levelMoney13').val();
+		$.ajax({
+			type:"post",
+			url:"/kugou/public/index.php/home/clanmanage/updateClanstarlevel",
+			async:true,
+			data:{level1:level1,level2:level2,level3:level3,level4:level4,level5:level5,level6:level6,level7:level7,level8:level8,level9:level9,level10:level10,level11:level11,level12:level12,level13:level13},
+			success:function(result){
+				if(result.code == 1){
+					alert('修改成功');
+					location.reload();
+				}else{
+					alert(result.msg);
+				}
+			}
+		});
+	}
+	$('#shezhi1').click(function(){
+		if('1'=='1'){
+			$('.sw-modal').fadeIn(200);
+			$('.sw-fade-in').fadeIn(200);
+		}
+	})
+	$('.sw-close').click(function(){
+		$('.sw-modal').fadeOut(200);
+		$('.sw-fade-in').fadeOut(200);
+	})
+	$('.sw-close2').click(function(){
+		$('#modal1').fadeOut(200);
+		$('.sw-fade-in').fadeOut(200);
+	})
+	$('.sw-fade-in').click(function(){
+		$('.sw-modal').fadeOut(200);
+		$('#modal1').fadeOut(200);
+		$(this).fadeOut(200);
+	})
+	$('.sw-modal').click(function(e){
+		e.stopPropagation;
+	})
+	$('#premission').click(function(){
+		$('.sw-fade-in').fadeIn(200);
+		$('#modal1').fadeIn(200);
+	})
+	$('#modal1').click(function(e){
+		e.stopPropagation;
+	})
+</script>
+{/block}

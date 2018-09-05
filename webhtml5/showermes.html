@@ -1,0 +1,296 @@
+{extend name="common:base" /} {block name="title"}主播收益详情页面{/block} {block name="link"}
+<link rel="stylesheet" href="https://xintan.oss-cn-beijing.aliyuncs.com/mxhome_new_images/js/fullcalendar.min.css">
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_575796_cdbdzs2b3ug.css" />
+<link rel="stylesheet" href="__STATIC__/home/mater/css/showerMes.css?v=1.7"> {/block} {block name="main"}
+<!-- 页面开始 -->
+<div class="container">
+    <!-- WEB端 -->
+
+    <!-- 主播简介卡片及雷达图开始 -->
+    <div class="shower-main row">
+        <!-- 主播简介开始 -->
+        <div class="shower-main-left col s12 m6 l5">
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div class="row">
+                        <div class="shower-main-img col s12 m6 l6">
+                            <p>
+                                <img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1526537031153&di=b6e1ea92269db73db4bd00e66fc3d2aa&imgtype=0&src=http%3A%2F%2Ffile01.16sucai.com%2Fd%2Ffile%2F2013-10-28%2F13829492133.jpg"
+                                    alt="">
+                            </p>
+                        </div>
+                        <div class="shower-mes-more col s12 m6 l6">
+                            <!-- <div class="row"> -->
+                            <div class="s12 m12 l12" style="min-width: 20rem;">
+                                <span>主播昵称: 加载中...</span>
+                                <span>
+                                    <img src="" alt="">
+                                </span>
+                            </div>
+                            <div class="s12 m12 l12">
+                                <span>等级:</span>
+                                <span>加载中...
+                                    <img src="" alt="">
+                                </span>
+                            </div>
+                            <div class="s12 m12 l12">
+                                <span>粉丝数量:</span>
+                                <span>加载中...</span>
+                            </div>
+                            <div class="s12 m12 l12">
+                                <span>主播ID:</span>
+                                <span>加载中...</span>
+                            </div>
+                            <div class="shower-tags s12 m12 l12">
+                                <span style="font-size: 16px;">加载中...</span>
+                                <!-- <span>女神</span>
+                                    <span>歌手</span> -->
+                            </div>
+                            <!-- </div> -->
+                        </div>
+                        <!-- <div class="col s5 m5 l5"></div> -->
+                    </div>
+                </div>
+                <div class="col s12 m12 l12">
+                    <div class="shower-enter col s12 m6 l6 center-align">
+                        <div class="shower-enter-son center-align">
+                            <a href="#">进入房间</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- 主播简介结束 -->
+        <!-- 主播雷达图开始 -->
+        <div class="shower-main-right col s12 m6 l7 valign-wrapper">
+            <div id="shower-radar">
+            </div>
+        </div>
+        <!-- 主播雷达图结束 -->
+    </div>
+    <!-- 主播简介及雷达图结束 -->
+
+    <!-- 分割线 -->
+    <!-- <div class="divider"></div> -->
+    <!-- 分割线 -->
+
+    <!-- 主播详细数据表格开始 -->
+    <div class="shower-chart row">
+        <div class="col s12 m12 l12">
+            <div id="main-earn">
+            </div>
+        </div>
+        <div class="col s12 m12 l12">
+            <div id="main-time">
+            </div>
+        </div>
+        <div class="col s12 m12 l12">
+            <div id="main-renqi">
+            </div>
+        </div>
+        <div class="col s12 m12 l12">
+            <div id="main-add">
+            </div>
+        </div>
+        <div class="col s12 m12 l12">
+            <div class="row">
+                <div class="col s12 m6 l6">
+                    <div class="row card-head">
+                        <div class="col s12 m6 l6">
+                            <p class="card-p">近7天开播5天,累计8次</p>
+                        </div>
+                        <div class="col s12 m6 l6">
+                            <ul class="right card-li">
+                                <li class="right center-align li-color">
+                                    <span>30天</span>
+                                </li>
+                                <li class="right center-align">
+                                    <span>15天</span>
+                                </li>
+                                <li class="right center-align">
+                                    <span>7天</span>
+                                </li>
+                            </ul>
+                            <ul class=" to-excel left">
+                                <li style="height: 2rem; line-height: 2rem; background: #2bb6ce; border-radius: 4px;">
+                                    <a style="color: #fff; padding: 2rem;" href="#">导出 EXCEL</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-panel new-card">
+                        <table class="hoverable">
+                            <thead>
+                                <tr>
+                                    <th class="th"></th>
+                                    <th data-field="id" class="th">开播时间</th>
+                                    <th data-field="id" class="th">关播时间</th>
+                                    <th data-field="name" class="th">直播时长</th>
+                                    <th data-field="price" class="th">直播收益</th>
+                                </tr>
+                            </thead>
+                            <tbody class="t-body">
+                                <!-- <tr>
+                                    <td>2018-05-12</td>
+                                    <td>2018-05-13</td>
+                                    <td>120分钟</td>
+                                    <td></td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- 页面分页开始 -->
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <div id="card-fenye-page">
+                                <div id="card-new-page" class="page fl center-align">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 页面分页结束 -->
+
+                </div>
+                <div class="col s12 m6 l6">
+                    <div id="compare">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 直播详细数据表格结束 -->
+
+    <!-- 分割线 -->
+    <div class="divider"></div>
+    <!-- 分割线 -->
+    <div class="shower-table row">
+        <div class="shower-table-left col s12 m12 l6">
+            <div id="calendar"></div>
+        </div>
+        <div class="shower-table-right col s12 m12 l6">
+
+            <div class="row shower-table-title-fa">
+                <div class="col s6 m6 l6 center-align shower-table-title shower-table-title-shadow">
+                    <span>观众打赏排行榜</span>
+                </div>
+                <div class="col s6 m6 l6 center-align shower-table-title">
+                    <span>礼物获取列表</span>
+                </div>
+            </div>
+            <div class="row new-gift-css">
+                <div class="col s12 m12 l12">
+                    <p class="left tips-p opacity" style="color: #dcdcdc;">* 以下只展示部分礼物</p>
+                    <ul class="right new-gift-css-list-change opacity" style="border: 1px solid #dcdcdc; height: 2rem; border-radius: 5px; overflow: hidden;">
+                        <li class="right center-align" style="line-height: 2rem; width: 3rem;">
+                            <span>曲线</span>
+                        </li>
+                        <li class="right center-align new-gift-css-list-change-l" style="line-height: 2rem; width: 3rem;">
+                            <span>列表</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col s12 m12 l12 new-gift-css-list" style="position: relative">
+                    <div id="gift-chart" class="opacity">
+
+                    </div>
+                    <div id="gift-list">
+
+                    </div>
+                </div>
+                <div class="col s12 m12 l12 new-gift-css-total">
+                    <ul style="flex-grow: 1; text-align: center;" id="heji">
+                    </ul>
+                    <ul style="display: flex; flex-grow: 10;" class="total-ul-css">
+                    </ul>
+                </div>
+                <div class="col s12 m12 l12 new-gift-css-page">
+                    <div class="row fenye-page-fa">
+                        <div class="col s12 m12 l12">
+                            <div id="fenye-page">
+                                <div id="new-page" class="page fl center-align">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 加载动画开始 -->
+            <div id="gift-loading">
+                <div class="gift-loading-img">
+                    <div id="loading-wrapper" class="preloader-wrapper big active">
+                        <div class="spinner-layer spinner-blue">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-red">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-yellow">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+
+                        <div class="spinner-layer spinner-green">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="gap-patch">
+                                <div class="circle"></div>
+                            </div>
+                            <div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div id="loading"> </div> -->
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- 页面结束 -->
+<input id='roomid' type='hidden' value='{$roomid}'>
+<!-- <script>
+var newId = {$userid};
+var newid1 = {$kugouid};
+
+</script> -->
+
+<!-- ------------------------引用js---------------------------- -->
+
+{/block}
+
+<!-- 数据渲染函数 -->
+{block name="js"}
+<script src="https://xintan.oss-cn-beijing.aliyuncs.com/mxhome_new_images/js/echarts.js"></script>
+<script src="https://xintan.oss-cn-beijing.aliyuncs.com/mxhome_new_images/js/moment.js"></script>
+<script src="https://xintan.oss-cn-beijing.aliyuncs.com/mxhome_new_images/js/fullcalendar.min.js"></script>
+<script src="__STATIC__/home/mater/js/zhao-js/jquery.pagination.min.js"></script>
+<script src="__STATIC__/home/mater/js/zhao-js/showerMes.js?v=1.7"></script> {/block}

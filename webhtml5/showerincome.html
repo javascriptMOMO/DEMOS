@@ -1,0 +1,209 @@
+{extend name="common:base" /} {block name="title"}主播流水数据页面{/block} {block name="link"}
+<link rel="stylesheet" href="__STATIC__/home/mater/js/sw-js/laydate/theme/default/laydate.css?v=2.102">
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_707280_5sn00zubjsv.css">
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_737706_ajqycm0yoe.css">
+
+<link rel="stylesheet" href="__STATIC__/home/mater/css/css-shadow.css?v=2.102">
+<!-- <link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_737706_btbldci99fb.css"> -->
+<!-- <link rel="stylesheet" href="__STATIC__/home/mater/css/style.css"> -->
+<!-- <link href='http://cdn.webfont.youziku.com/webfonts/nomal/121252/46010/5b59884cf629d9117cc357bb.css' rel='stylesheet' type='text/css' /> -->
+{/block} {block name="main"}
+<section id="content" class="page-fa">
+    <!-- WEB端 -->
+    <!-- 面包屑导航开始 -->
+    <div id="breadcrumbs-wrapper" class="bread" style="height: 105px;">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m3 l3">
+                    <h5 class="breadcrumbs-title css137ae5b46a1d9a4" style="color: #fff;">主播流水
+                        <i data-title="" class="iconfont icon-aui-icon-question my-title">
+                            <ul class="title-after">
+                                <li>● 流水页面每日0点后更新</li>
+                                <li>● 此页面流水为主播等级经验差值</li>
+                                <li>● 近7日流水为最近七天</li>
+                                <li>● 月度流水为所选当月</li>
+                                <li>● 点击月数字可查询历史月份</li>
+                                <li>● 滚动数字从左依次为昨日,周,月的流水汇总</li>
+                            </ul>
+                        </i>
+                    </h5>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a style="color: #fff; font-weight: 100!important;" href="index.html">首页</a>
+                        </li>
+                        <li>
+                            <a style="color: #fff; font-weight: 100!important;" href="#">主播信息</a>
+                        </li>
+                        <li class="active" style="color: #FCBB18; font-weight: 100!important;">主播流水</li>
+                    </ol>
+                </div>
+                <div class="col s12 m6 l6 time-scroll">
+
+                </div>
+                <div class=" col s12 m3 l3 box-flex-div offset-m6 offset-l6 hide-on-small-only">
+                    <ul class="box-flex-ul center-right">
+                        <li class="box-flex-input">
+                            <input id="idinput" type="text" placeholder="请输入主播ID/主播房间ID">
+                        </li>
+                        <li class="box-flex-button">
+                            <span style="display: inline-block; width:100%;">
+                                <a class="waves-effect waves-light btn">查询</a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 开始内容 -->
+    <div id="move-small" class="section">
+        <div id="grid-responsive" class="section">
+            <div class="row">
+                <!-- 主播列表区域开始 -->
+                <div class="col s12 m12 l12 page-position">
+                    <div class="card-panel move">
+                        <!-- 主播列表小标题开始 -->
+                        <div id="page-position-head" class="row">
+                            <ul>
+                                <li style="width: 10rem;">主播</li>
+                                <li style="width: 2rem; position: relative;" class="same-xingbi hide-on-small-only">昨日流水
+                                    <i class="mdi-hardware-keyboard-arrow-down sw-down" style="position:absolute; top:1rem; color: rgb(50, 50, 50); vertical-align: -3px; font-size: 14px;"></i>
+                                    <div class="num-scroll-earn hide-on-small-only">
+                                        <span class="same-yesterday">0元</span>
+                                    </div>
+
+                                </li>
+                                <li style="width: 2rem; position: relative;" class="same-seven hide-on-small-only">近七日流水
+                                    <i class="mdi-hardware-keyboard-arrow-down sw-down" style="position:absolute; top:1rem; color: rgb(50, 50, 50); vertical-align: -3px; font-size: 14px;"></i>
+                                    <div class="num-scroll-earn hide-on-small-only">
+                                        <span class="same-sevenIncom">0元</span>
+                                    </div>
+
+                                </li>
+                                <li style="width: 2rem; position: relative;" class="same-month">
+                                    <span id="month-num" style="background: #FCBB18; padding: 1px 4px;">7</span>
+                                    <span class="month-click">月流水</span>
+                                    <i class="mdi-hardware-keyboard-arrow-down sw-down" style="position:absolute; top:1rem; color: rgb(50, 50, 50); vertical-align: -3px; font-size: 14px;"></i>
+                                    <div class="num-scroll-earn hide-on-small-only">
+                                        <span class="same-monthIncom">0元</span>
+                                    </div>
+
+                                </li>
+                                <li style="width: 2rem; position: relative;" class="same-liwu hide-on-small-only">
+                                    <span>选择分组
+                                        <i class="mdi-hardware-keyboard-arrow-down sw-down" style="position:absolute; top:1rem; color: rgb(50, 50, 50); vertical-align: -3px; font-size: 14px;"></i>
+                                    </span>
+                                    <div class="find-fenzu-wrapper" style="right: 25%;">
+                                        <div class="find-fenzu-fa">
+                                            <ul class="find-fenzu1">
+                                                <li class="center-align">
+                                                    全部主播
+                                                </li>
+                                                <li groupid="0" class="center-align">
+                                                    未分组
+                                                </li>
+                                            </ul>
+                                            <ul class="find-fenzu">
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li style="width: 1rem">数据详情
+                                    <!-- <i data-title="点击下方按钮,可查看对应主播的详细数据!" class="iconfont icon-aui-icon-question my-title1 hide-on-small-only"></i> -->
+                                </li>
+                            </ul>
+
+                        </div>
+                        <!-- 主播列表小标题结束 -->
+                        <div id="page-position-body" class="row">
+                            <!-- <ul class="collection"> -->
+                            <!-- 主播渲染内容区 -->
+                            <div class="player-earn-data-show">
+                            </div>
+                            <!-- 主播渲染内容区结束 -->
+                            <!-- </ul> -->
+                            <!-- 主播列表结束 -->
+                        </div>
+                        <!-- 页面分页开始 -->
+                        <div class="row">
+                            <div class="col s2 m2 l2">
+                            </div>
+                            <div class="col s8 m8 l8 offset-s2 offset-m2 offset-l2">
+                                <div id="fenye-page">
+                                    <div id="new-page" class="page fl center-align">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s2 m2 l2"></div>
+                        </div>
+                        <!-- 页面分页结束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 内容结束 -->
+</section>
+<!-- 加载动画开始 -->
+<div id="loading">
+    <div class="loading-img">
+        <div id="loading-wrapper" class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            <div class="spinner-layer spinner-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            <div class="spinner-layer spinner-yellow">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            <div class="spinner-layer spinner-green">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 加载动画结束 -->
+{/block} {block name="js"}
+<script src="__STATIC__/home/mater/js/zhao-js/newPage.js?v=2.102"></script>
+<script src="__STATIC__/home/mater/js/zhao-js/jquery.pagination.min.js?v=2.102"></script>
+<script src="__STATIC__/home/mater/js/sw-js/laydate/laydate.js?v=2.102"></script>
+<script src="__STATIC__/home/mater/js/zhao-js/layer/layer.js"></script>
+
+<!-- <script src="https://xintan.oss-cn-beijing.aliyuncs.com/mxhome_new_images/js/layer.js"></script> -->
+<script src="__STATIC__/home/mater/js/zhao-js/showerincome.js?v=2.102"></script>
+{/block}

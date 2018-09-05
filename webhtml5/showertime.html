@@ -1,0 +1,257 @@
+{extend name="common:base" /} {block name="title"}主播时长数据页面{/block} {block name="link"}
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_575796_cdbdzs2b3ug.css" />
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_707280_5sn00zubjsv.css">
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_737706_ajqycm0yoe.css">
+
+<link rel="stylesheet" href="__STATIC__/home/mater/css/css-shadow.css?v=2.100">
+<link rel="stylesheet" href="__STATIC__/home/mater/js/sw-js/laydate/theme/default/laydate.css?v=2.100">
+
+<!-- <link rel="stylesheet" href="__STATIC__/home/mater/css/style.css"> -->
+<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+{/block} {block name="main"}
+<section id="content">
+    <!-- WEB端 -->
+    <!-- 面包屑导航开始 -->
+    <div id="breadcrumbs-wrapper" class="bread" style="height: 105px;">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m3 l3">
+                    <h5 class="breadcrumbs-title" style="color: #fff;">主播时长
+                        <i data-title="" class="iconfont icon-aui-icon-question my-title">
+                            <ul class="title-after">
+                                <li>● 时长页面每日0点后更新</li>
+                                <li>● 黄色部分为电脑开播时长</li>
+                                <li>● 蓝色部分为双流开播时长</li>
+                                <li>● 月度时长为所选当月</li>
+                                <li>● 点击月数字可查询历史月份</li>
+                                <li>● 滚动数字从左依次为昨日,周,月的时长汇总</li>
+                            </ul>
+                        </i>
+                    </h5>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a style="color: #fff; font-weight: 100!important;" href="index.html">首页</a>
+                        </li>
+                        <li>
+                            <a style="color: #fff; font-weight: 100!important;" href="#">主播信息</a>
+                        </li>
+                        <li style="color: #FCBB18; font-weight: 100!important;" class="active">主播时长</li>
+                    </ol>
+                </div>
+                <div class="col col12 m6 l6 time-scroll">
+                    <!-- <div class="row">
+                        <div class="col m4 l4">
+                            <span class="">0</span>
+                            <span class="">小时</span>
+                            <span class="">0</span>
+                            <span class="">分钟</span>
+
+                        </div>
+                        <div class="col m4 l4">
+                            <span class="">0</span>
+                            <span class="">小时</span>
+                            <span class="">0</span>
+                            <span class="">分钟</span>
+
+                        </div>
+                        <div class="col m4 l4">
+                            <span class="">0</span>
+                            <span class="">小时</span>
+                            <span class="">0</span>
+                            <span class="">分钟</span>
+
+                        </div>
+
+                    </div> -->
+                </div>
+                <div class="col s12 m3 l3 box-flex-div offset-m6 offset-l6">
+                    <ul class="box-flex-ul center-right">
+                        <li class="box-flex-input">
+                            <input id="idinput" type="text" placeholder="请输入主播ID/主播房间ID">
+                        </li>
+                        <li class="box-flex-button">
+                            <a class="waves-effect waves-light btn">查询</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 面包屑导航开始 -->
+    <!-- 开始内容 -->
+    <div>
+        <div id="move-small" class="section">
+            <div id="grid-responsive" class="section">
+                <div class="row">
+                    <!-- 主播列表区域开始 -->
+                    <div class="col s12 m12 l12 page-position">
+                        <div class="card-panel move">
+                            <!-- 主播列表小标题开始 -->
+                            <div id="page-position-head" class="row">
+                                <ul>
+                                    <li style="width: 10rem; flex-grow: 1;">主播</li>
+                                    <li style="width: 2rem; position: relative; text-align: left; flex-grow: 2;" class="same-xingbi">昨日时长
+                                        <i class="mdi-hardware-keyboard-arrow-down sw-down" style="position:absolute; top:1rem; color: rgb(50, 50, 50); vertical-align: -3px; font-size: 14px;"></i>
+                                        <div class="num-scroll-time">
+                                            <span class="same-h">0</span>
+                                            <span class="same-hour">时</span>
+                                            <span class="same-m">0</span>
+                                            <span class="same-minute">分</span>
+                                        </div>
+                                    </li>
+                                    <li style="width: 2rem; position: relative; text-align: left; flex-grow: 2;" class="same-seven">近七日时长
+                                        <i class="mdi-hardware-keyboard-arrow-down sw-down" style="position:absolute; top:1rem; color: rgb(50, 50, 50); vertical-align: -3px; font-size: 14px;"></i>
+                                        <div class="num-scroll-time">
+                                            <span class="same-h-sev">0</span>
+                                            <span class="same-hour-sev">时</span>
+                                            <span class="same-m-sev">0</span>
+                                            <span class="same-minute-sev">分</span>
+                                        </div>
+                                    </li>
+                                    <li style="width: 2rem; position: relative; text-align: left; flex-grow: 2;" class="same-month">
+                                        <span id="month-num" style="background: #FCBB18; padding: 1px 4px;">7</span>
+                                        <span class="month-click">月时长</span>
+                                        <i class="mdi-hardware-keyboard-arrow-down sw-down" style="position:absolute; top:1rem; color: rgb(50, 50, 50); vertical-align: -3px; font-size: 14px;"></i>
+                                        <div class="num-scroll-time">
+                                            <span class="same-h-mon">0</span>
+                                            <span class="same-hour-mon"></span>时</span>
+                                            <span class="same-m-mon">0</span>
+                                            <span class="same-minute-mon">分</span>
+                                        </div>
+                                    </li>
+                                    <li style="width: 2rem; position: relative; text-align: left;" class="same-liwu">
+                                        <span>选择分组
+                                            <i class="mdi-hardware-keyboard-arrow-down sw-down" style="position:absolute; top:1rem; color: rgb(50, 50, 50); vertical-align: -3px; font-size: 14px;"></i>
+                                        </span>
+                                        <div class="find-fenzu-wrapper">
+                                            <div class="find-fenzu-fa">
+                                                <ul class="find-fenzu1">
+                                                    <li class="center-align">
+                                                        全部主播
+                                                    </li>
+                                                    <li groupid="0" class="center-align">
+                                                        未分组
+                                                    </li>
+                                                </ul>
+                                                <ul class="find-fenzu">
+
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    <li style="width: 1rem">数据详情</li>
+                                </ul>
+                            </div>
+                            <!-- 主播列表小标题结束 -->
+                            <div id="page-position-body" class="row">
+                                <!-- <ul class="collection"> -->
+                                <div class="player-earn-data-show">
+                                    <!-- <ul class="flex">
+                                        <li style="width: 10rem; display: flex;">
+                                            <div style="flex-grow: 1; padding-top: 0.7rem; width: 2rem;">
+                                                <img class="circle" src="http://static.suantao.com/fanxing.png" alt="">
+                                            </div>
+                                            <div style="flex-grow: 1; padding-top: 0.7rem; width: 2rem;">
+                                                <img class="circle" src="http://static.suantao.com/fanxing.png" alt="">
+                                            </div>
+                                            <div style="flex-grow: 1;">
+                                                <span>主播1主播1主播1</span>
+                                            </div>
+                                        </li>
+                                        <li style="width: 2rem">14时16分</li>
+                                        <li style="width: 2rem">14时16分</li>
+                                        <li style="width: 2rem">14时16分</li>
+                                        <li style="width: 2rem">14时16分</li>
+                                        <li style="width: 1rem">
+                                            <a href=" " class="">
+                                                <span class="" style="display: block; height: 4.2rem; line-height: 4.2rem;">
+                                                    <span style="background: #ff4081; padding: 4px 14px; font-weight: 300; font-size: 0.8rem; border-radius: 2px; color: #fff;">>></span>
+                                                </span>
+                                            </a>
+                                        </li>
+                                    </ul> -->
+                                </div>
+                                <!-- </ul> -->
+                            </div>
+                            <!-- 主播列表结束 -->
+                        </div>
+                        <!-- 页面分页开始 -->
+                        <div class="row">
+                            <div class="col s2 m2 l2">
+                            </div>
+                            <div class="col s8 m8 l8 offset-s2 offset-m2 offset-l2">
+                                <div id="fenye-page">
+                                    <div id="new-page" class="page fl center-align">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s2 m2 l2"></div>
+                        </div>
+                        <!-- 页面分页结束 -->
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="divider"></div> -->
+        </div>
+    </div>
+    <!-- 内容结束 -->
+</section>
+<!-- 加载动画开始 -->
+<div id="loading">
+    <div class="loading-img">
+        <!-- <p>正在加载数据.....请稍后.......</p> -->
+        <div id="loading-wrapper" class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            <div class="spinner-layer spinner-red">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            <div class="spinner-layer spinner-yellow">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+            <div class="spinner-layer spinner-green">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{/block} {block name="js"}
+<!-- 翻页功能函数 -->
+<script src="__STATIC__/home/mater/js/zhao-js/jquery.pagination.min.js?v=2.100"></script>
+<script src="__STATIC__/home/mater/js/sw-js/laydate/laydate.js?v=2.100"></script>
+<script src="__STATIC__/home/mater/js/zhao-js/layer/layer.js?v=2.100"></script>
+<script src="__STATIC__/home/mater/js/zhao-js/showertime.js?v=2.100"></script> {/block}

@@ -1,0 +1,254 @@
+{extend name="common:base" /}
+{block name="title"}主播列表{/block}
+{block name="link"}
+<!--<link rel="stylesheet" href="__STATIC__/home/mater/css/showerlst.css">-->
+<link rel="stylesheet" href="__STATIC__/home/mater/css/hax-css/showerlst.css?v=1.6">
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_707280_5sn00zubjsv.css">
+<!--<link rel="stylesheet" href="__STATIC__/home/mater/css/style.css">-->
+<!--<link rel="stylesheet" href="__STATIC__/home/mater/plus/simplePage/css/simplePaging.css">-->
+<!--<link rel="stylesheet" href="__STATIC__/home/mater/plus/pagination/css/jquery.pagination.css">-->
+{/block}
+
+{block name="main"}
+<section id="content">
+
+    <!--breadcrumbs start-->
+    <div id="breadcrumbs-wrapper" class=" grey lighten-3" style="margin: 20px 21px 0 20px;height: 105px;">
+        <div class="container container_showlst" style="border: 1px solid #d0d0d0;">
+            <div class="row" style="height: 101px; padding-left: 25px; position: relative;">
+                <div class="col s12 m12 l12">
+                    <h5 class="breadcrumbs-title" style="position: relative; color: #fff;"><span style="float: left">实时数据</span>
+                        <a class="que" href="javascript:;">
+                            <i class="iconfont icon-aui-icon-question" style="font-size: 20px; color: #fff; margin-left: 10px; position: relative;"></i>
+                            <p>
+                                <ul class="que-display">
+                                    <li>●  方便工会实时查看工会主播运营状态</li>
+                                    <li>●  实时数据每小时更新一次</li>
+                                    <li>●  礼物价值：收到礼物的单价相加总和</li>
+                                    <li>●  数据受到网络影响和新礼物影响或有误差</li>
+                                    <li>●  不影响每日个人汇总与工会总收入</li>
+                                </ul>
+                            </p>
+                        </a>
+
+                    </h5>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html" style="color: #fff;">首页</a>
+                        </li>
+
+                        <li class="active" style="color:#FCBB18;">实时数据</li>
+                    </ol>
+
+                    <span style="position: absolute; bottom: 10px; left: 177px; color: #fff;">
+                        主播实时数据更新于：<span id="time_info"></span>
+                    </span>
+                    <div class="col lg-12 " style="position: absolute;
+    bottom: 10px;
+    right: 26px;">
+                        <div style="width: 100%; height: 100%; position: relative;">
+                            <input id="search_input" type="text" name="showid" placeholder="主播ID-房间号" style="text-indent: 10px; float: left; " >
+                            <span id="search" class="mdi-action-search" style="color: #ccc;
+    float: left;
+    position: absolute;
+    right: 0px;
+    height: 32px;
+    line-height: 32px;"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--breadcrumbs end-->
+
+
+
+
+
+    <!--<div class="divider"></div>-->
+    <!--Radar Chart-->
+    <div class="row">
+        <div class="col s12 m12 l12 ">
+            <div class="linetable" style="padding: 0px 10px 0 9px; color: #fff;margin-top: 4px;">
+                <div style="display: flex;justify-content: space-around;background: #0097A7; align-items: center;height: 45px; margin-top: -7px;border: 1px solid #d0d0d0;">
+                            <div style="width: 4%;">
+                                <span></span>
+                            </div>
+                            <div style="width: 14%; text-indent: 45px;">
+                                <span>主播昵称</span>
+                            </div>
+                            <div style="width: 13%; text-indent: 5px;">
+                                <span>房间号</span>
+                            </div>
+                            <div style="width: 13%; text-indent: 10px;">
+                                <span>今日直播时长</span>
+                            </div>
+                            <div style="width: 13%; text-indent: 5px;">
+                                <span>今日礼物价值</span>
+                            </div>
+                            <div style="width: 14%; text-indent: 15px;">
+                                <span>粉丝数量</span>
+                            </div>
+                            <div style="width: 14%; text-indent: 5px;">
+                                <span>今日最大访客</span>
+                            </div>
+                            <div style="position: relative; width: 14%" class="group-all" height="30px">
+                                <p class="ovfolwp"><span id="groupName">全部分组</span>
+                                    <i class="mdi-hardware-keyboard-arrow-down sw-down" style="color: #323232;vertical-align: -3px;"></i>
+                                </p>
+                                <div class="groups">
+                                    <ul class="group-list" id="groupList">
+                                        <li id="">全部分组</li>
+                                        <li id="0">未分组</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="groupstarlist" style="padding:2px 9px 0 9px; position:relative;">
+                    <table class="bordered  highlight responsive-table striped " width="100%">
+                        <!--<thead>
+                        <tr  style="font-weight: 300; font-size: 16px; color:#616161;">
+                            <td class="text-center "  height="30px"></td>
+                            <td style="text-indent: 48px;" height="30px">主播昵称</td>
+                            <td style="text-indent: 10px;" height="30px">房间号</td>
+                            <td height="30px">今日直播时长</td>
+                            <td height="30px">今日礼物价值</td>
+                            <td style="text-indent: 15px;" height="30px">粉丝数量</td>
+                            <td height="30px">今日最大访客</td>
+                            <td style="position: relative;" class="group-all" height="30px">
+                                <p class="ovfolwp"><span id="groupName">全部分组</span>
+                                    <i class="mdi-hardware-keyboard-arrow-down sw-down" style="color: #323232;vertical-align: -3px;"></i></p>
+                                <div class="groups">
+                                    <ul class="group-list" id="groupList">
+                                        <li id="">全部分组</li>
+                                        <li id="0">未分组</li>
+                                    </ul>
+                                 </div>
+
+                            </td>
+                        </tr>
+                        </thead>-->
+
+                        <tbody id="tableDatas">
+
+                        </tbody>
+                    </table>
+
+
+
+                        <!-- 加载动画开始 -->
+                        <div id="loading">
+                            <div class="loading-img">
+                                <div id="loading-wrapper" class="preloader-wrapper big active">
+                                    <div class="spinner-layer spinner-blue">
+                                        <div class="circle-clipper left">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="spinner-layer spinner-red">
+                                        <div class="circle-clipper left">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="spinner-layer spinner-yellow">
+                                        <div class="circle-clipper left">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="spinner-layer spinner-green">
+                                        <div class="circle-clipper left">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div>
+                                        <div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- 加载动画结束 -->
+
+
+
+
+
+                    <!-- 主播列表结束 -->
+
+                    <!-- 页面分页开始 -->
+                    <div class="row">
+                        <div class="col s2 m2 l2">
+                        </div>
+                        <div class="col s8 m8 l8 offset-s2 offset-m2 offset-l2">
+                            <div id="fenye-page" style="margin-top: 27px;">
+                                <div id="M-box1" class="page fl center-align">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col s2 m2 l2"></div>
+                    </div>
+                    <!-- 页面分页结束 -->
+
+
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end container-->
+</section>
+
+{/block}
+{block name="js"}
+<!-- chartist -->
+<!--<script type="text/javascript" src="__STATIC__/home/mater/js/plugins/chartist-js/chartist.min.js"></script>-->
+
+<!-- chartjs -->
+<!--<script type="text/javascript" src="__STATIC__/home/mater/js/plugins/chartjs/chart.min.js"></script>-->
+<!--<script type="text/javascript" src="__STATIC__/home/mater/js/plugins/chartjs/chartjs-sample-chart.js"></script>-->
+
+
+<!--plugins.js - Some Specific JS codes for Plugin Settings-->
+<!--<script type="text/javascript" src="__STATIC__/home/mater/js/plugins.js"></script>-->
+
+<!-- 翻页功能函数 -->
+<script src="__STATIC__/home/mater/js/plugins/pagination/js/jquery.pagination.min.js?v=1.2"></script>
+<!-- 页面加载数据接口 -->
+<script src="__STATIC__/home/mater/js/hax-js/groupstarlist.js?v=1.6"></script>
+<script>
+    $(document).ready(function() {
+        $('select').material_select();
+
+
+    });
+
+</script>
+
+{/block}
+
+

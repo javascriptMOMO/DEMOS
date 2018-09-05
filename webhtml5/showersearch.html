@@ -1,0 +1,181 @@
+{extend name="common:base" /} {block name="title"}主播收益数据页面{/block} {block name="link"}
+<link rel="stylesheet" href="__STATIC__/home/mater/js/sw-js/laydate/theme/default/laydate.css?v=2.100">
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_707280_5sn00zubjsv.css">
+<link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_737706_37whnisgunj.css">
+<link rel="stylesheet" href="__STATIC__/home/mater/css/css-shadow.css?v=2.100">
+<!-- <link rel="stylesheet" type="text/css" href="http://at.alicdn.com/t/font_737706_btbldci99fb.css"> -->
+<!-- <link rel="stylesheet" href="__STATIC__/home/mater/css/style.css"> -->
+<!-- <link href='http://cdn.webfont.youziku.com/webfonts/nomal/121252/46010/5b59884cf629d9117cc357bb.css' rel='stylesheet' type='text/css' /> -->
+{/block} {block name="main"}
+<section id="content" class="page-fa">
+    <!-- WEB端 -->
+    <!-- 面包屑导航开始 -->
+    <div id="breadcrumbs-wrapper" class="bread" style="height: 105px;">
+        <div class="container">
+            <div class="row">
+                <div class="col s12 m3 l3">
+                    <h5 class="breadcrumbs-title css137ae5b46a1d9a4" style="color: #fff;">盗号查询
+                        <i data-title="" class="iconfont icon-aui-icon-question my-title">
+                            <ul class="title-after">
+                                <li>● 输入主播ID查询</li>
+                            </ul>
+                        </i>
+                    </h5>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a style="color: #fff; font-weight: 100!important;" href="index.html">首页</a>
+                        </li>
+                        <li>
+                            <a style="color: #fff; font-weight: 100!important;" href="#">工具箱</a>
+                        </li>
+                        <li class="active" style="color: #FCBB18; font-weight: 100!important;">盗号查询</li>
+                    </ol>
+                </div>
+                <div class="col s12 m6 l6 time-scroll">
+
+                </div>
+                <div class=" col s12 m3 l3 box-flex-div offset-m6 offset-l6 hide">
+                    <ul class="box-flex-ul center-right">
+                        <li class="box-flex-input">
+                            <input id="idinput" type="text" placeholder="请输入主播ID/主播房间ID">
+                        </li>
+                        <li class="box-flex-button">
+                            <span style="display: inline-block; width:100%;">
+                                <a class="waves-effect waves-light btn">查询</a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 开始内容 -->
+    <div id="move-small" class="section">
+        <div id="grid-responsive" class="section">
+            <div class="row">
+                <div class="col s12 m12 l12 page-position">
+                    <div class="card-panel move" style="margin-top: -1px!important;">
+                        <div class="row">
+                            <div class="col s4 m4 l4" style="border-top: 1px solid #dcdcdc; padding: 0rem; position: absolute;">
+                                <div style="height: 3rem; width: 275px; background: #0097A7;border-right: 1px solid #dcdcdc; line-height: 3rem; text-align: center; color: #fff;">选择日期</div>
+                                <div id="month-num" style="position: relative; top: 0rem;"></div>
+                                <div style="width: 275px; height: 3rem;">
+                                    <input id="idinput1" type="text" placeholder="请输入本公会主播ID" style="height: 100%; width: 214px;">
+                                    <span class="box-flex-button1" style="display: inline-block; width: 56px; height: 3rem; line-height: 3rem; background: #0097A7; text-align: center; color: #fff;margin-top: 1.5rem; cursor: pointer;">
+                                        确定
+                                    </span>
+                                    <div style="width: 274px;">
+                                        <p>Tips</p>
+                                        <p>1: 在日历中选择要查询的某一天。</p>
+                                        <p>2: 填写本公会主播的ID。</p>
+                                        <p>3: 被盗刷的礼物，送给了哪些主播（目前仅支持有公会的主播)。</p>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col s12 m12 l12" style="border-top: 1px solid #dcdcdc; padding: 0rem; padding-left: 275px;">
+                                <div style="height: 3rem; background: #0097A7; line-height: 3rem; text-align: center; color: #fff;">
+                                    消费详情
+                                </div>
+                                <div style="height: 40rem; border: 1px solid #dcdcdc;" class="steal-gift-list">
+                                    <p style="text-align: center; line-height: 40rem; margin: 0rem; color: #dcdcdc;">选择日期，输入ID，进行查询！</p>
+                                    <!-- <ul style="display: flex;">
+                                        <li style="width: 5rem;">2018-05-15</li>
+                                        <li class="gift-time2" style="width: 1rem;">18:18:18</li>
+
+                                        <li>送给</li>
+                                        <li>
+                                            <span style="color: #039be5;">
+                                                <a href="javascript:;">今天的太阳真大啊</a>
+                                            </span>
+                                        </li>
+                                        <li style="width: 3rem; color:#F08201;">5个</li>
+                                        <li style="width: 0.5rem;">
+                                            <img src="http://s3.fx.kgimg.com/fxstatic/images/giftres/12/8cf783a47b10153784b2dfb0126fde9e.gif" alt="礼物头像">
+                                        </li>
+                                        <li>礼物名字</li>
+                                    </ul> -->
+                                </div>
+                                <!-- 加载动画开始 -->
+                                <div id="loading">
+                                    <div class="loading-img">
+                                        <div id="loading-wrapper" class="preloader-wrapper big active">
+                                            <div class="spinner-layer spinner-blue">
+                                                <div class="circle-clipper left">
+                                                    <div class="circle"></div>
+                                                </div>
+                                                <div class="gap-patch">
+                                                    <div class="circle"></div>
+                                                </div>
+                                                <div class="circle-clipper right">
+                                                    <div class="circle"></div>
+                                                </div>
+                                            </div>
+                                            <div class="spinner-layer spinner-red">
+                                                <div class="circle-clipper left">
+                                                    <div class="circle"></div>
+                                                </div>
+                                                <div class="gap-patch">
+                                                    <div class="circle"></div>
+                                                </div>
+                                                <div class="circle-clipper right">
+                                                    <div class="circle"></div>
+                                                </div>
+                                            </div>
+                                            <div class="spinner-layer spinner-yellow">
+                                                <div class="circle-clipper left">
+                                                    <div class="circle"></div>
+                                                </div>
+                                                <div class="gap-patch">
+                                                    <div class="circle"></div>
+                                                </div>
+                                                <div class="circle-clipper right">
+                                                    <div class="circle"></div>
+                                                </div>
+                                            </div>
+                                            <div class="spinner-layer spinner-green">
+                                                <div class="circle-clipper left">
+                                                    <div class="circle"></div>
+                                                </div>
+                                                <div class="gap-patch">
+                                                    <div class="circle"></div>
+                                                </div>
+                                                <div class="circle-clipper right">
+                                                    <div class="circle"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 加载动画结束 -->
+
+                            </div>
+
+                        </div>
+                        <!-- 页面分页开始 -->
+                        <!-- <div class="row">
+                            <div class="col s2 m2 l2">
+                            </div>
+                            <div class="col s8 m8 l8 offset-s2 offset-m2 offset-l2">
+                                <div id="fenye-page">
+                                    <div id="new-page" class="page fl center-align">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s2 m2 l2"></div>
+                        </div> -->
+                        <!-- 页面分页结束 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 内容结束 -->
+</section>
+{/block} {block name="js"}
+<script src="__STATIC__/home/mater/js/zhao-js/newPage.js?v=2.100"></script>
+<script src="__STATIC__/home/mater/js/zhao-js/jquery.pagination.min.js?v=2.100"></script>
+<script src="__STATIC__/home/mater/js/sw-js/laydate/laydate.js?v=2.100"></script>
+<!-- <script src="https://xintan.oss-cn-beijing.aliyuncs.com/mxhome_new_images/js/layer.js"></script> -->
+<script src="__STATIC__/home/mater/js/zhao-js/showersearch.js?v=2.100"></script> {/block}
